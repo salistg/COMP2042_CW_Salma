@@ -1,0 +1,9 @@
+.toggle-button {
+    -fx-graphic: url("musicOn.png");
+    -fx-background-color: transparent;
+}
+
+.toggle-button:selected {
+    -fx-graphic: url("musicOff.png");
+    -fx-background-color: transparent;
+}

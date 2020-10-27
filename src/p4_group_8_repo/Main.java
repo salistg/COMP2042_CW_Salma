@@ -5,11 +5,15 @@ import java.util.List;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -18,6 +22,7 @@ public class Main extends Application {
 	AnimationTimer timer;
 	MyStage background;
 	Animal animal;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -26,6 +31,8 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 	    background = new MyStage();
 	    Scene scene  = new Scene(background,600,800);
+		BackgroundFill backgroundFill = new BackgroundFill(Color.BLACK, new CornerRadii(1), new Insets(0.0,0.0,0.0,0.0));
+		background.setBackground(new Background(backgroundFill));
 	    
 //		Obstacle obstacle = new Obstacle("file:src/p4_group_8_repo/truck1Right.png", 25, 25, 3);
 //		Obstacle obstacle1 = new Obstacle("file:src/p4_group_8_repo/truck2Right.png", 100, 100,2 );
@@ -94,11 +101,24 @@ public class Main extends Application {
 		//background.add(obstacle);
 		//background.add(obstacle1);
 		//background.add(obstacle2);
+
+		ToggleButton musicButton = new ToggleButton();
+		musicButton.getStylesheets().add(this.getClass().getResource("button.css").toExternalForm());
+
+		background.getChildren().add(musicButton);
+		musicButton.setOnAction(event -> {
+			if (musicButton.isSelected())
+				background.stopMusic();
+			else
+				background.playMusic();
+		});
+
 		background.start();
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		start();  
 	}
+
 	public void createTimer() {
         timer = new AnimationTimer() {
             @Override
@@ -120,6 +140,7 @@ public class Main extends Application {
             }
         };
     }
+
 	public void start() {
 		background.playMusic();
     	createTimer();
