@@ -2,6 +2,7 @@ package p4_group_8_repo;
 
 import java.io.File;
 
+import javafx.scene.control.ToggleButton;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -33,6 +34,7 @@ public class MyStage extends World{
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 	    mediaPlayer.play();
+
 	}
 	
 	public void stopMusic() {
