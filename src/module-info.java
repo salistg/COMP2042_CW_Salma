@@ -3,6 +3,7 @@ module Frogger {
     requires javafx.controls;
     requires javafx.media;
     requires javafx.graphics;
+    requires java.desktop;
 
     exports p4_group_8_repo;
 
