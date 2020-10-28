@@ -1,5 +1,9 @@
 package p4_group_8_repo;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javafx.event.EventHandler;
@@ -254,7 +258,34 @@ public class Animal extends Actor {
 	public int getPoints() {
 		return points;
 	}
-	
+
+	public void updateFile(int points){
+		FileWriter fileWriter = null;
+		File file;
+
+		try{
+			file = new File("src/p4_group_8_repo/scores.txt");
+			if(file.createNewFile())
+				System.out.println("File created.");
+			else
+				System.out.println("File already exists.");
+
+			fileWriter = new FileWriter("scores.txt",true);
+			fileWriter.write(Integer.toString(points));
+			fileWriter.write("\n");
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				fileWriter.close();
+				System.out.println("File closed.");
+			} catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+
+	}
+
 	public boolean changeScore() {
 		if (changeScore) {
 			changeScore = false;
