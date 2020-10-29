@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 public class EndScreen {
     public Scene start(Stage stage) throws Exception {
-        Collection<ScoresData> list = Files.readAllLines(new File("scores.txt").toPath()).stream().map(
+        Collection<ScoresData> list = Files.readAllLines(new File("src/p4_group_8_repo/Files/scores.txt").toPath()).stream().map(
                 line -> {
                     String[] details = line.split("\n");
                     ScoresData scoresData = new ScoresData();
@@ -75,7 +75,7 @@ public class EndScreen {
         backButton.setOnAction(event3 -> {
             if(backButton.isSelected()) {
                 try {
-                    start.startGame(stage);
+                    start.startGame(stage, false,1);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -264,13 +264,13 @@ public class Animal extends Actor {
 		File file;
 
 		try{
-			file = new File("src/p4_group_8_repo/scores.txt");
+			file = new File("src/p4_group_8_repo/Files/scores.txt");
 			if(file.createNewFile())
 				System.out.println("File created.");
 			else
 				System.out.println("File already exists.");
 
-			fileWriter = new FileWriter("scores.txt",true);
+			fileWriter = new FileWriter("src/p4_group_8_repo/Files/scores.txt",true);
 			fileWriter.write(Integer.toString(points));
 			fileWriter.write("\n");
 		} catch (IOException e) {

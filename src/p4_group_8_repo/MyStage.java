@@ -8,6 +8,7 @@ import javafx.scene.media.MediaPlayer;
 
 public class MyStage extends World{
 	MediaPlayer mediaPlayer;
+
 	@Override
 	public void act(long now) {
 		
@@ -33,7 +34,7 @@ public class MyStage extends World{
 		Media sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-	    mediaPlayer.play();
+		mediaPlayer.play();
 
 	}
 	

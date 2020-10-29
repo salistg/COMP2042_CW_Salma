@@ -29,7 +29,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Start start = new Start();
-		start.startGame(primaryStage);
+		start.startGame(primaryStage, false,1);
 	}
 
 
