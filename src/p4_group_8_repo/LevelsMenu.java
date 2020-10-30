@@ -1,5 +1,7 @@
 package p4_group_8_repo;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,6 +14,7 @@ public class LevelsMenu {
     MyStage levelStages;
     GameScreen gameScreen;
     Scene scene;
+    StartScreen startScreen;
 
     public Scene levelsMenu(Stage stage) {
         VBox vBox = new VBox();
@@ -20,10 +23,15 @@ public class LevelsMenu {
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         vBox.setBackground(new Background(backgroundImage));
 
+        gameScreen = new GameScreen(1,false);
+       // gameScreen.setMusic(false);
+
         Button level1Button = new Button("Level 1");
         level1Button.setOnAction(actionEvent -> {
-                gameScreen = new GameScreen(1);
-                levelStages = gameScreen.gameScreen(stage,true);
+                //gameScreen = new GameScreen(1,true);
+            gameScreen.setMusic(true);
+            gameScreen.setLevel(1);
+                levelStages = gameScreen.gameScreen(stage);
                 scene = new Scene(levelStages,600,800);
                 levelStages.start();
                 stage.setScene(scene);
@@ -32,8 +40,10 @@ public class LevelsMenu {
 
         Button level2Button = new Button("Level 2");
         level2Button.setOnAction(actionEvent -> {
-            gameScreen = new GameScreen(2);
-            levelStages = gameScreen.gameScreen(stage,true);
+            //gameScreen = new GameScreen(2,true);
+            gameScreen.setMusic(true);
+            gameScreen.setLevel(2);
+            levelStages = gameScreen.gameScreen(stage);
             scene = new Scene(levelStages,600,800);
             levelStages.start();
             stage.setScene(scene);
@@ -43,18 +53,31 @@ public class LevelsMenu {
 
         Button level3Button = new Button("Level 3");
         level3Button.setOnAction(actionEvent -> {
-            gameScreen = new GameScreen(3);
-            levelStages = gameScreen.gameScreen(stage,true);
+            //gameScreen = new GameScreen(3,true);
+            gameScreen.setMusic(true);
+            gameScreen.setLevel(3);
+            levelStages = gameScreen.gameScreen(stage);
             scene = new Scene(levelStages,600,800);
             levelStages.start();
             stage.setScene(scene);
             stage.show();
         });
 
-        vBox.getChildren().addAll(level1Button,level2Button,level3Button);
+        Button backButton = new Button("Back to Main Menu");
+        backButton.setOnAction(actionEvent -> {
+            startScreen = new StartScreen(false,1);
+            try {
+                startScreen.startGame(stage);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
+
+        vBox.getChildren().addAll(level1Button,level2Button,level3Button,backButton);
         buttons(vBox, level1Button);
         buttons(vBox,level2Button);
         buttons(vBox,level3Button);
+        buttons(vBox,backButton);
 
         Scene scene1 = new Scene(vBox,500,600);
 

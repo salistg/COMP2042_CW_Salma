@@ -1,27 +1,19 @@
 package p4_group_8_repo;
 
-import javafx.application.Application;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.util.Collection;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 
@@ -67,7 +59,7 @@ public class EndScreen {
 
         tableView.setItems(sortedList);
 
-        Start start = new Start();
+        StartScreen startScreen = new StartScreen(false,1);
         VBox vBox = new VBox(tableView);
         vBox.setAlignment(Pos.CENTER);
         ToggleButton backButton = new ToggleButton("Back");
@@ -75,7 +67,7 @@ public class EndScreen {
         backButton.setOnAction(event3 -> {
             if(backButton.isSelected()) {
                 try {
-                    start.startGame(stage, false,1);
+                    startScreen.startGame(stage);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
