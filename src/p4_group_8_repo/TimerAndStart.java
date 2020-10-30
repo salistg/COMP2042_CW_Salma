@@ -8,8 +8,6 @@ import javafx.stage.Stage;
 public class TimerAndStart {
     AnimationTimer timer;
 
-
-
     public void setNumber(int n, MyStage myStage) {
         int shift = 0;
         while (n > 0) {

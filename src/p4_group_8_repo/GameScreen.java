@@ -1,24 +1,33 @@
 package p4_group_8_repo;
 
-import javafx.animation.AnimationTimer;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.layout.BackgroundImage;
 import javafx.stage.Stage;
 
-
 public class GameScreen {
-    AnimationTimer timer;
     MyStage background;
     Animal animal;
+    Scene levelsMenu;
     int level;
+    boolean music;
 
-    public GameScreen(int level){
+    public GameScreen(int level, boolean music){
+        this.level=level;
+        this.music=music;
+    }
+
+    public void setMusic(boolean music){
+        this.music=music;
+    }
+    public void setLevel(int level){
         this.level=level;
     }
 
-    public MyStage gameScreen (Stage stage, boolean music){
+    public MyStage gameScreen (Stage stage){
         background = new MyStage();
 
         BackgroundImage backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/iKogsKW.png",600,800,false,true),
@@ -31,6 +40,24 @@ public class GameScreen {
                 BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
         int x = 141 + 141 - 13 + 141 - 13 + 141 - 13 + 3;
+
+        VBox vBox = new VBox();
+        vBox.setLayoutX(559);
+        vBox.setAlignment(Pos.TOP_RIGHT);
+
+
+        Button backButton = new Button("Back");
+        backButton.setOnAction(event3 -> {
+            levelsMenu = new LevelsMenu().levelsMenu(stage);
+            try {
+                background.stopMusic();
+                stage.setScene(levelsMenu);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        vBox.getChildren().add(backButton);
+        background.getChildren().add(vBox);
 
         if (level==1) {
 
@@ -47,21 +74,21 @@ public class GameScreen {
             background.add(new Log("file:src/p4_group_8_repo/images/log3.png", 150, 270, 329, 0.75));
             background.add(new Log("file:src/p4_group_8_repo/images/log3.png", 150, 490, 329, 0.75));
             //background.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 570, 329, 0.75));
-
             background.add(new Turtle(500, 376, -1, 130, 130));
             background.add(new Turtle(300, 376, -1, 130, 130));
             background.add(new WetTurtle(700, 376, -1, 130, 130));
             background.add(new WetTurtle(600, 217, -1, 130, 130));
             background.add(new WetTurtle(400, 217, -1, 130, 130));
             background.add(new WetTurtle(200, 217, -1, 130, 130));
-
             background.add(new End(13, 96));
             background.add(new End(141, 96));
             background.add(new End(141 + 141 - 13, 96));
             background.add(new End(141 + 141 - 13 + 141 - 13 + 1, 96));
             background.add(new End(x, 96));
+
             animal = new Animal("file:src/p4_group_8_repo/images/froggerUp.png");
             background.add(animal);
+
             background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1" + "Right.png", 0, 649, 1, 120, 120));
             background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1" + "Right.png", 300, 649, 1, 120, 120));
             background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1" + "Right.png", 600, 649, 1, 120, 120));
@@ -83,10 +110,7 @@ public class GameScreen {
             //background2.add(new Log("file:src/p4_group_8_repo/log3.png", 150, 0, 166, 0.75));
             background.add(new Log("file:src/p4_group_8_repo/images/logs.png", 300, 0, 260, -2));
             background.add(new Log("file:src/p4_group_8_repo/images/logs.png", 300, 400, 260, -2));
-
             addBG(x);
-
-
             background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1"+"Right.png", 0, 649, 2, 120, 120));
             background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1"+"Right.png", 300, 649, 2, 120, 120));
             background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1"+"Right.png", 600, 649, 2, 120, 120));
@@ -94,9 +118,7 @@ public class GameScreen {
             addObstacle();
 //        background2.add(new Digit(0, 30, 360, 15));
         } else if (level==3){
-
             background.setBackground(new Background(backgroundImage3));
-
 
             background.add(new Log("file:src/p4_group_8_repo/images/log3.png", 150, 0, 135, 0.75));
             background.add(new Log("file:src/p4_group_8_repo/images/log3.png", 150, 220, 135, 0.75));
@@ -108,18 +130,12 @@ public class GameScreen {
             background.add(new Log("file:src/p4_group_8_repo/images/logs.png", 300, 400, 260, -2));
             //background3.add(new Log("file:src/p4_group_8_repo/images/crocodile.png", 220, 730 , 255, -2));
             background.add(new Obstacle("file:src/p4_group_8_repo/images/redCroc.png", -50, 255, 2, 120, 120));
-
-
             addBG(x);
-
-
-            background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1"+"Right.png", 0, 649, 3, 120, 120));
-            background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1"+"Right.png", 300, 649, 3, 120, 120));
-            background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1"+"Right.png", 600, 649, 3, 120, 120));
+            background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1"+"Right.png", 0, 649, 2, 120, 120));
+            background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1"+"Right.png", 300, 649, 2, 120, 120));
+            background.add(new Obstacle("file:src/p4_group_8_repo/images/truck1"+"Right.png", 600, 649, 2, 120, 120));
 //        background2.add(new Obstacle("file:src/p4_group_8_repo/truck1"+"Right.png", 720, 649, -2, 120, 120));
             addObstacle();
-
-
         } else {
             System.out.println("No level chosen.");
         }
