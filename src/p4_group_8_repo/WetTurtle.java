@@ -2,22 +2,28 @@ package p4_group_8_repo;
 
 import javafx.scene.image.Image;
 
+/**
+ * Wet turtle class that extends the Actor class.
+ * Responsible for Wet Turtle objects that will appear on the game screen and
+ * add to the functionality of the game.
+ */
 public class WetTurtle extends Actor{
-	Image turtle1;
-	Image turtle2;
-	Image turtle3;
-	Image turtle4;
-	private int speed;
-	int i = 1;
-	boolean bool = true;
-	boolean sunk = false;
+	private final Image turtle1;
+	private final Image turtle2;
+	private final Image turtle3;
+	private final Image turtle4;
+	private final int speed;
+	private boolean sunk = false;
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void act(long now) {
 
 				if (now/900000000  % 4 ==0) {
 					setImage(turtle2);
 					sunk = false;
-					
 				}
 				else if (now/900000000 % 4 == 1) {
 					setImage(turtle1);
@@ -37,6 +43,17 @@ public class WetTurtle extends Actor{
 		if (getX() < -75 && speed<0)
 			setX(600);
 	}
+
+	/**
+	 * Instantiates a new Wet turtle.
+	 * Sets the image of the wet turtle, its X and Y position as well as its speed.
+	 *
+	 * @param xpos the X position of the turtle.
+	 * @param ypos the Y position of the turtle.
+	 * @param s    the speed of the turtle.
+	 * @param w    the width of the turtle.
+	 * @param h    the height of the turtle.
+	 */
 	public WetTurtle(int xpos, int ypos, int s, int w, int h) {
 		turtle1 = new Image("file:src/p4_group_8_repo/images/TurtleAnimation1.png", w, h, true, true);
 		turtle2 = new Image("file:src/p4_group_8_repo/images/TurtleAnimation2Wet.png", w, h, true, true);
@@ -47,6 +64,12 @@ public class WetTurtle extends Actor{
 		speed = s;
 		setImage(turtle2);
 	}
+
+	/**
+	 * Returns whether the wet turtle is sunk or not.
+	 *
+	 * @return boolean: true if turtle is sunk, false if not
+	 */
 	public boolean isSunk() {
 		return sunk;
 	}

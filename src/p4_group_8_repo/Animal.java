@@ -1,46 +1,51 @@
 package p4_group_8_repo;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
-import javafx.event.EventHandler;
-
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 
+/**
+ * Animal class that extends the Actor class.
+ * This class is responsible for everything related to the Animal object (the frog)
+ * which is the main character to play with in the game.
+ *
+ */
 public class Animal extends Actor {
-	Image imgW1;
-	Image imgA1;
-	Image imgS1;
-	Image imgD1;
-	Image imgW2;
-	Image imgA2;
-	Image imgS2;
-	Image imgD2;
-	int points = 0;
-	int end = 0;
-	private boolean second = false;
-	boolean noMove = false;
-	double movement = 13.3333333*2;
-	double movementX = 10.666666*2;
-	int imgSize = 40;
-	boolean carDeath = false;
-	boolean waterDeath = false;
-	boolean stop = false;
-	boolean changeScore = false;
-	int carD = 0;
-	double w = 800;
-	ArrayList<End> inter = new ArrayList<End>();
 
+	//Image variables for the look of the animal
+	private final Image imgW1;
+	private final Image imgA1;
+	private final Image imgS1;
+	private final Image imgD1;
+	private final Image imgW2;
+	private final Image imgA2;
+	private final Image imgS2;
+	private final Image imgD2;
+	private int points = 0; //points the user scores as the animal moves
+	private int end = 0; //number of burrows the user reaches with the animal
+	private boolean second = false; //to indicate if the frog is jumping or moving
+	private boolean noMove = false; //to indicate if the frog is moving or no
+	private final double movement = 13.3333333 * 2; //movement of the animal character along the Y axis
+	private final double movementX = 10.666666 * 2; //movement along the X axis
+	private final int imgSize = 40; //image size
+	private boolean carDeath = false; //variable for death by a car (obstacle) object
+	private boolean waterDeath = false; //variable for death by water
+	private boolean changeScore = false; //variable for score change as the user plays
+    private int carD = 0; //car death variable to indicate the type of car deaths
+	private double w = 800; //width of the gae screen
+
+	/**
+	 * Constructor to instantiate a new Animal.
+	 * It sets the main image of the animal, the starting X and Y coordinates,
+	 * its movements when the keys are pressed and released as well as
+	 * the image of the animal when it moves at a certain key press.
+	 *
+	 * @param imageLink image link for the main image of the animal at the beginning of the game
+	 */
 	public Animal(String imageLink) {
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(300);
-		setY(679.8+movement);
+		setY(679.8 + movement);
 		imgW1 = new Image("file:src/p4_group_8_repo/images/froggerUp.png", imgSize, imgSize, true, true);
 		imgA1 = new Image("file:src/p4_group_8_repo/images/froggerLeft.png", imgSize, imgSize, true, true);
 		imgS1 = new Image("file:src/p4_group_8_repo/images/froggerDown.png", imgSize, imgSize, true, true);
@@ -49,251 +54,216 @@ public class Animal extends Actor {
 		imgA2 = new Image("file:src/p4_group_8_repo/images/froggerLeftJump.png", imgSize, imgSize, true, true);
 		imgS2 = new Image("file:src/p4_group_8_repo/images/froggerDownJump.png", imgSize, imgSize, true, true);
 		imgD2 = new Image("file:src/p4_group_8_repo/images/froggerRightJump.png", imgSize, imgSize, true, true);
-		setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent event){
-				if (noMove) {
-					
-				}
-				else {
+		setOnKeyPressed(event -> {
+
 				if (second) {
 					if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
-		                move(0, -movement);
-		                changeScore = false;
-		                setImage(imgW1);
-		                second = false;
-		            }
-		            else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
-		            	 move(-movementX, 0);
-		            	 setImage(imgA1);
-		            	 second = false;
-		            }
-		            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
-		            	 move(0, movement);
-		            	 setImage(imgS1);
-		            	 second = false;
-		            }
-		            else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
-		            	 move(movementX, 0);
-		            	 setImage(imgD1);
-		            	 second = false;
-		            }
+						move(0, -movement);
+						changeScore = false;
+						setImage(imgW1);
+						second = false;
+					} else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
+						move(-movementX, 0);
+						setImage(imgA1);
+						second = false;
+					} else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
+						move(0, movement);
+						setImage(imgS1);
+						second = false;
+					} else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
+						move(movementX, 0);
+						setImage(imgD1);
+						second = false;
+					}
+				} else if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
+					move(0, -movement);
+					setImage(imgW2);
+					second = true;
+				} else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
+					move(-movementX, 0);
+					setImage(imgA2);
+					second = true;
+				} else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
+					move(0, movement);
+					setImage(imgS2);
+					second = true;
+				} else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
+					move(movementX, 0);
+					setImage(imgD2);
+					second = true;
 				}
-				else if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
-	                move(0, -movement);
-	                setImage(imgW2);
-	                second = true;
-	            }
-	            else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
-	            	 move(-movementX, 0);
-	            	 setImage(imgA2);
-	            	 second = true;
-	            }
-	            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
-	            	 move(0, movement);
-	            	 setImage(imgS2);
-	            	 second = true;
-	            }
-	            else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
-	            	 move(movementX, 0);
-	            	 setImage(imgD2);
-	            	 second = true;
-	            }
-	        }
-			}
-		});	
-		setOnKeyReleased(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent event) {
-				if (noMove) {}
-				else {
-				if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
+
+		});
+		setOnKeyReleased(event -> {
+		if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
 					if (getY() < w) {
 						changeScore = true;
 						w = getY();
-						points+=10;
+						points += 10;
 					}
-	                move(0, -movement);
-	                setImage(imgW1);
-	                second = false;
-	            }
-	            else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
-	            	 move(-movementX, 0);
-	            	 setImage(imgA1);
-	            	 second = false;
-	            }
-	            else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
-	            	 move(0, movement);
-	            	 setImage(imgS1);
-	            	 second = false;
-	            }
-	            else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
-	            	 move(movementX, 0);
-	            	 setImage(imgD1);
-	            	 second = false;
-	            }
-	        }
-			}
-			
+					move(0, -movement);
+					setImage(imgW1);
+					second = false;
+				} else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
+					move(-movementX, 0);
+					setImage(imgA1);
+					second = false;
+				} else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
+					move(0, movement);
+					setImage(imgS1);
+					second = false;
+				} else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
+					move(movementX, 0);
+					setImage(imgD1);
+					second = false;
+				}
+
 		});
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void act(long now) {
-		int bounds = 0;
-		if (getY()<0 || getY()>734) {
+		if (getY() < 0 || getY() > 734) {
 			setX(300);
-			setY(679.8+movement);
+			setY(679.8 + movement);
 		}
-		if (getX()<0) {
-			move(movement*2, 0);
+		if (getX() < 0) {
+			move(movement * 2, 0);
 		}
 		if (carDeath) {
 			noMove = true;
-			if ((now)% 11 ==0) {
+			if ((now) % 11 == 0) {
 				carD++;
 			}
-			if (carD==1) {
+			if (carD == 1) {
 				setImage(new Image("file:src/p4_group_8_repo/images/cardeath1.png", imgSize, imgSize, true, true));
 			}
-			if (carD==2) {
+			if (carD == 2) {
 				setImage(new Image("file:src/p4_group_8_repo/images/cardeath2.png", imgSize, imgSize, true, true));
 			}
-			if (carD==3) {
+			if (carD == 3) {
 				setImage(new Image("file:src/p4_group_8_repo/images/cardeath3.png", imgSize, imgSize, true, true));
 			}
 			if (carD == 4) {
-				setX(300);
-				setY(679.8+movement);
 				carDeath = false;
-				carD = 0;
-				setImage(new Image("file:src/p4_group_8_repo/images/froggerUp.png", imgSize, imgSize, true, true));
-				noMove = false;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
-				}
+				setDeath();
 			}
-			
 		}
 		if (waterDeath) {
 			noMove = true;
-			if ((now)% 11 ==0) {
+			if ((now) % 11 == 0) {
 				carD++;
 			}
-			if (carD==1) {
-				setImage(new Image("file:src/p4_group_8_repo/images/waterdeath1.png", imgSize,imgSize , true, true));
+			if (carD == 1) {
+				setImage(new Image("file:src/p4_group_8_repo/images/waterdeath1.png", imgSize, imgSize, true, true));
 			}
-			if (carD==2) {
-				setImage(new Image("file:src/p4_group_8_repo/images/waterdeath2.png", imgSize,imgSize , true, true));
+			if (carD == 2) {
+				setImage(new Image("file:src/p4_group_8_repo/images/waterdeath2.png", imgSize, imgSize, true, true));
 			}
-			if (carD==3) {
-				setImage(new Image("file:src/p4_group_8_repo/images/waterdeath3.png", imgSize,imgSize , true, true));
+			if (carD == 3) {
+				setImage(new Image("file:src/p4_group_8_repo/images/waterdeath3.png", imgSize, imgSize, true, true));
 			}
 			if (carD == 4) {
-				setImage(new Image("file:src/p4_group_8_repo/images/waterdeath4.png", imgSize,imgSize , true, true));
+				setImage(new Image("file:src/p4_group_8_repo/images/waterdeath4.png", imgSize, imgSize, true, true));
 			}
 			if (carD == 5) {
-				setX(300);
-				setY(679.8+movement);
 				waterDeath = false;
-				carD = 0;
-				setImage(new Image("file:src/p4_group_8_repo/images/froggerUp.png", imgSize, imgSize, true, true));
-				noMove = false;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
-				}
+				setDeath();
 			}
-			
+
 		}
-		
-		if (getX()>600) {
-			move(-movement*2, 0);
+		if (getX() > 600) {
+			move(-movement * 2, 0);
 		}
 		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
 			carDeath = true;
 		}
 		if (getX() == 240 && getY() == 82) {
-			stop = true;
+			boolean stop = true;
 		}
 		if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
-			if(getIntersectingObjects(Log.class).get(0).getLeft())
-				move(-2,0);
+			if (getIntersectingObjects(Log.class).get(0).getLeft())
+				move(-2, 0);
 			else
-				move (.75,0);
-		}
-		else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
-			move(-1,0);
-		}
-		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
+				move(.75, 0);
+		} else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
+			move(-1, 0);
+		} else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
 			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
 				waterDeath = true;
 			} else {
-				move(-1,0);
+				move(-1, 0);
 			}
-		}
-		else if (getIntersectingObjects(End.class).size() >= 1) {
-			inter = (ArrayList<End>) getIntersectingObjects(End.class);
+		} else if (getIntersectingObjects(End.class).size() >= 1) {
+			//ArrayList<End> inter = (ArrayList<End>) getIntersectingObjects(End.class);
 			if (getIntersectingObjects(End.class).get(0).isActivated()) {
 				end--;
-				points-=50;
+				points -= 50;
 			}
-			points+=50;
+			points += 50;
 			changeScore = true;
-			w=800;
+			w = 800;
 			getIntersectingObjects(End.class).get(0).setEnd();
 			end++;
 			setX(300);
-			setY(679.8+movement);
-		}
-		else if (getY()<413){
+			setY(679.8 + movement);
+		} else if (getY() < 413) {
 			waterDeath = true;
-			//setX(300);
-			//setY(679.8+movement);
+
 		}
 	}
+
+	/**
+	 * This method returns whether the user has finished the game or not.
+	 * The game stops when the number of ends is 5.
+	 *
+	 * @return boolean of end==5
+	 */
 	public boolean getStop() {
-		return end==5;
+		return end == 5;
 	}
-	
+
+	/**
+	 * Gets the points the user has accumulated in the game.
+	 *
+	 * @return points
+	 */
 	public int getPoints() {
 		return points;
 	}
 
-	public void updateFile(int points){
-		FileWriter fileWriter = null;
-		File file;
 
-		try{
-			file = new File("src/p4_group_8_repo/Files/scores.txt");
-			if(file.createNewFile())
-				System.out.println("File created.");
-			else
-				System.out.println("File already exists.");
-
-			fileWriter = new FileWriter("src/p4_group_8_repo/Files/scores.txt",true);
-			fileWriter.write(Integer.toString(points));
-			fileWriter.write("\n");
-		} catch (IOException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				fileWriter.close();
-				System.out.println("File closed.");
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-
-	}
-
+	/**
+	 * This method returns whether the score of the user has changed or not.
+	 *
+	 * @return true if score changed, false otherwise
+	 */
 	public boolean changeScore() {
 		if (changeScore) {
 			changeScore = false;
 			return true;
 		}
 		return false;
-		
 	}
-	
+
+	/**
+	 * This method is used when the animal dies due to water or a car.
+	 * This method resets the animal back to its start position and image if it dies and
+	 * cuts off 50 points from the user if their score is greater than 50.
+	 */
+	private void setDeath() {
+		setX(300);
+		setY(679.8 + movement);
+		carD = 0;
+		setImage(new Image("file:src/p4_group_8_repo/images/froggerUp.png", imgSize, imgSize, true, true));
+		noMove = false;
+		if (points > 50) {
+			points -= 50;
+			changeScore = true;
+		}
+	}
 
 }
