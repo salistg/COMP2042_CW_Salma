@@ -3,65 +3,54 @@ package p4_group_8_repo;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.animation.AnimationTimer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 
+/**
+ * This class represents a 2D world in which the Actors of the game live.
+ */
 public abstract class World extends Pane {
-    private AnimationTimer timer;
-    
+   private AnimationTimer timer;
+
+    /**
+     * Constructor that instantiates a new World.
+     */
     public World() {
     	
-    	sceneProperty().addListener(new ChangeListener<Scene>() {
+    	sceneProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                newValue.setOnKeyReleased(event -> {
+                    if(getOnKeyReleased() != null)
+                        getOnKeyReleased().handle(event);
+                    List<Actor> myActors = getObjects(Actor.class);
+                    for (Actor anActor: myActors) {
+                        if (anActor.getOnKeyReleased() != null) {
+                            anActor.getOnKeyReleased().handle(event);
+                        }
+                    }
+                });
 
-			@Override
-			public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
-				if (newValue != null) {
-					newValue.setOnKeyReleased(new EventHandler<KeyEvent>() {
+                newValue.setOnKeyPressed(event -> {
+                    if(getOnKeyPressed() != null)
+                        getOnKeyPressed().handle(event);
+                    List<Actor> myActors = getObjects(Actor.class);
+                    for (Actor anActor: myActors) {
+                        if (anActor.getOnKeyPressed() != null) {
+                            anActor.getOnKeyPressed().handle(event);
+                        }
+                    }
+                });
+            }
 
-						@Override
-						public void handle(KeyEvent event) {
-							if(getOnKeyReleased() != null) 
-								getOnKeyReleased().handle(event);
-							List<Actor> myActors = getObjects(Actor.class);
-							for (Actor anActor: myActors) {
-								if (anActor.getOnKeyReleased() != null) {
-									anActor.getOnKeyReleased().handle(event);
-								}
-							}
-						}
-						
-					});
-					
-					newValue.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-						@Override
-						public void handle(KeyEvent event) {
-							if(getOnKeyPressed() != null) 
-								getOnKeyPressed().handle(event);
-							List<Actor> myActors = getObjects(Actor.class);
-							for (Actor anActor: myActors) {
-								if (anActor.getOnKeyPressed() != null) {
-									anActor.getOnKeyPressed().handle(event);
-								}
-							}
-						}
-						
-					});
-				}
-				
-			}
-    		
-		});
+        });
     }
 
+    /**
+     * Creates an AnimationTimer and creates a list of objects under the Actor class.
+     * Calls the act method on these objects.
+     */
     public void createTimer() {
         timer = new AnimationTimer() {
             @Override
@@ -77,25 +66,40 @@ public abstract class World extends Pane {
         };
     }
 
+    /**
+     * Starts the animation timer.
+     */
     public void start() {
     	createTimer();
         timer.start();
     }
 
+    /**
+     * Stops the animation timer.
+     */
     public void stop() {
         timer.stop();
     }
-    
+
+    /**
+     * Adds an object of type Actor as a child of
+     * a World type object.
+     *
+     * @param actor the actor
+     */
     public void add(Actor actor) {
         getChildren().add(actor);
     }
 
-    public void remove(Actor actor) {
-        getChildren().remove(actor);
-    }
-
+    /**
+     * Gets the children objects of the classes that extend the Actor class.
+     *
+     * @param <A> the type parameter. The type is a class extending Actor class.
+     * @param cls the class
+     * @return the array of objects
+     */
     public <A extends Actor> List<A> getObjects(Class<A> cls) {
-        ArrayList<A> someArray = new ArrayList<A>();
+        ArrayList<A> someArray = new ArrayList<>();
         for (Node n: getChildren()) {
             if (cls.isInstance(n)) {
                 someArray.add((A)n);
@@ -104,5 +108,13 @@ public abstract class World extends Pane {
         return someArray;
     }
 
+    /**
+     * Abstract method to be inherited by all classes extending the World class.
+     * Dictates how the objects should act at a certain timeframe or
+     * under certain conditions.
+     * Allows objects to perform some action.
+     *
+     * @param now timestamp of the current frame in nanoseconds
+     */
     public abstract void act(long now);
 }

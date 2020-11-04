@@ -1,8 +1,6 @@
 package p4_group_8_repo;
 
-import javafx.animation.AnimationTimer;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,25 +10,26 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.BackgroundImage;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
+/**
+ * This class is responsible for displaying the Start Screen
+ * which the user sees first upon clicking on the game.
+ * This start screen has the main menu through which
+ * the user can choose to play the game, view hgh scores, exit it or view how to play it.
+ */
 public class StartScreen {
-   MyStage helpScreen;
-   MyStage background;
-   boolean music;
-   int level;
 
-   public StartScreen(boolean music, int level){
-       this.music=music;
-       this.level=level;
-
-   }
-
-    public void startGame(Stage primaryStage) throws Exception {
+    /**
+     * Starts the game by displaying the main menu.
+     *
+     * @param primaryStage the primary stage of the game
+     * @throws IOException in case an error occurs when showing the EndScreen after the "view high scores" button is pressed
+     */
+    public void startGame(Stage primaryStage) throws IOException {
         primaryStage.setTitle("Frogger");
 
-        background = new GameScreen(level, music).gameScreen(primaryStage);
-        //Scene scene  = new Scene(background,600,750);
-
-        helpScreen = new MyStage();
+        MyStage helpScreen = new MyStage();
         Scene helpScene = new Scene(helpScreen,500,600);
 
         BackgroundImage backgroundImage1 = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/helpBackground.png",500,600, false, true),
@@ -62,10 +61,10 @@ public class StartScreen {
         });
 
         VBox vBox = new VBox();
-        LevelsMenu.buttons(vBox, startButton);
-        LevelsMenu.buttons(vBox, helpButton);
-        LevelsMenu.buttons(vBox, exitButton);
-        LevelsMenu.buttons(vBox, highScoreButton);
+        buttons(vBox, startButton);
+        buttons(vBox, helpButton);
+        buttons(vBox, exitButton);
+        buttons(vBox, highScoreButton);
 
         vBox.getChildren().addAll(startButton,helpButton,highScoreButton,exitButton);
         Scene startScene = new Scene(vBox,500,600);
@@ -82,16 +81,28 @@ public class StartScreen {
                 primaryStage.setScene(startScene);
         });
 
-        Button backButton2 = new Button("Back");
-        backButton2.setOnAction(actionEvent -> primaryStage.setScene(startScene));
-
-        backButton2.setLayoutX(559);
-        background.getChildren().add(backButton2);
-
-        background.start();
         primaryStage.setScene(startScene);
         primaryStage.show();
 
+    }
+
+    /**
+     * Sets the preferred width, height, padding, alignment and spacing of
+     * a VBox and its buttons.
+     *
+     * @param vBox the VBox to set the preferences for
+     * @param button a button in the VBox
+     */
+
+    public static void buttons(VBox vBox, Button button) {
+        vBox.setPrefWidth(340);
+        vBox.setPrefHeight(50);
+        vBox.setSpacing(10);
+        vBox.setPadding(new Insets(0,20,10,20));
+        vBox.setAlignment(Pos.CENTER);
+
+        button.setMinWidth(vBox.getPrefWidth());
+        button.setMinHeight(vBox.getPrefHeight());
     }
 
 
