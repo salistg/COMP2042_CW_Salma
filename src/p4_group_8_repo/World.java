@@ -6,13 +6,14 @@ import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import p4_group_8_repo.Models.Actor;
 
 
 /**
  * This class represents a 2D world in which the Actors of the game live.
  */
 public abstract class World extends Pane {
-   private AnimationTimer timer;
+   private AnimationTimer timer = null;
 
     /**
      * Constructor that instantiates a new World.

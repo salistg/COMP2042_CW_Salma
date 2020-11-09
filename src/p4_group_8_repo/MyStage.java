@@ -11,7 +11,7 @@ import javafx.scene.media.MediaPlayer;
  * of the game world.
  */
 public class MyStage extends World{
-	private MediaPlayer mediaPlayer;
+	private MediaPlayer mediaPlayer = null;
 
 	/**
 	 * {@inheritDoc}
