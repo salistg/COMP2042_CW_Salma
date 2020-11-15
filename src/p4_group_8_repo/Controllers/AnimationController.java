@@ -7,11 +7,20 @@ import p4_group_8_repo.Models.Digit;
 import p4_group_8_repo.MyStage;
 
 /**
- * This class is responsible for starting and stopping the animation of the game.
+ * This class is responsible for starting and stopping the animation of the objects of the game.
  * It uses an AnimationTimer and its different methods.
  */
 public class AnimationController {
    private AnimationTimer timer = null;
+   private final Stage stage;
+  private ObjectControllers objectControllers;
+   private final MyStage myStage;
+
+   public AnimationController(Stage stage, MyStage myStage, ObjectControllers objectControllers){
+       this.stage=stage;
+       this.myStage=myStage;
+       this.objectControllers = objectControllers;
+   }
 
     /**
      * Sets the number of the Digit which appears on top of the screen as the user plays the game.
@@ -28,26 +37,23 @@ public class AnimationController {
             int d = n / 10;
             int k = n - d * 10;
             n = d;
-            myStage.add(new Digit(k, 30, 360 - shift, 25));
+           myStage.add(new Digit(k, 30, 360 - shift, 25));
             shift+=30;
         }
     }
 
     /**
-     * Creates the animation timer.
-     * @param stage   the stage of the application
-     * @param animal  the Animal object that the user plays with on the game screen
-     * @param myStage MyStage object that will have the animation timer added to it
+     * Creates the animation timer for the movement of an Animal object.
      */
-    public void createTimer(Stage stage, AnimalController animal, MyStage myStage) {
+    public void createTimer() {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (animal.changeScore()) {
-                    setNumber(animal.getPoints(),myStage);
+                if (objectControllers.changeScore()) {
+                    setNumber(objectControllers.getPoints(),myStage);
                 }
-                if (animal.getStop()) {
-                    gameEnd(stage, myStage, animal);
+                if (objectControllers.getStop()) {
+                    gameEnd();
                 }
             }
         };
@@ -55,17 +61,14 @@ public class AnimationController {
 
     /**
      * Stops the animation and the music at the end of the game.
-     *  @param stage   the stage of the application
-     * @param myStage the MyStage object that will have end screen scene in it
-     * @param animal  the Animal object that the user plays with in the game
      */
-    void gameEnd(Stage stage, MyStage myStage, AnimalController animal){
-        EndOfGame endOfGame = new EndOfGame();
+    void gameEnd(){
+        EndOfGame endOfGame = new EndOfGame(stage, objectControllers);
         System.out.print("Game Over\n");
         myStage.stopMusic();
         stop();
         myStage.stop();
-        endOfGame.endDisplay(stage,animal);
+        endOfGame.endDisplay();
     }
 
     /**
@@ -78,13 +81,11 @@ public class AnimationController {
     /**
      * Starts the animation of the game by
      * creating the timer, starting it and playing the game's music.
-     * @param stage   the stage of the application
-     * @param animal  the Animal object that the user plays with in the game
-     * @param myStage the MyStage object that will have the timer added to it
      */
-    public void start(Stage stage, AnimalController animal, MyStage myStage) {
+    public void start() {
         myStage.playMusic();
-        createTimer(stage, animal, myStage);
+        createTimer();
         timer.start();
     }
+
 }

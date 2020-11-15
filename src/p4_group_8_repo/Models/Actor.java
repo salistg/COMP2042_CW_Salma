@@ -1,6 +1,7 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.ImageView;
+import p4_group_8_repo.Controllers.ObjectControllers;
 import p4_group_8_repo.World;
 
 import java.util.ArrayList;
@@ -33,11 +34,11 @@ public abstract class Actor extends ImageView{
     }
 
     /**
-     * This method gets the objects intersecting with
+     * Gets the objects intersecting with
      * another certain object. For example, objects interacting with a Log object.
      *
      * @param <A> type parameter. Type is a class that extends the Actor class.
-     * @param cls the class of the certain object
+     * @param cls the class of the object
      * @return    an array containing the objects
      */
     public <A extends Actor> java.util.List<A> getIntersectingObjects(java.lang.Class<A> cls){
@@ -59,5 +60,6 @@ public abstract class Actor extends ImageView{
      * @param now timestamp of the current frame in nanoseconds
      */
     public abstract void act(long now);
+    public abstract ObjectControllers getObjectController();
 
 }

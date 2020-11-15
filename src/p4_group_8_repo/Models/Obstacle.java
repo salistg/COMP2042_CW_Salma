@@ -1,6 +1,7 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.Image;
+import p4_group_8_repo.Controllers.ObjectControllers;
 import p4_group_8_repo.Models.Actor;
 
 /**
@@ -9,7 +10,7 @@ import p4_group_8_repo.Models.Actor;
  * to the game screen.
  */
 public class Obstacle extends Actor {
-	private int speed;
+	private final int speed;
 
 	/**
 	 * Instantiates a new Obstacle.
@@ -40,6 +41,11 @@ public class Obstacle extends Actor {
 			setX(-200);
 		if (getX() < -50 && speed<0)
 			setX(600);
+	}
+
+	@Override
+	public ObjectControllers getObjectController() {
+		return null;
 	}
 
 }

@@ -8,9 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import p4_group_8_repo.Controllers.AnimationController;
+import p4_group_8_repo.Controllers.ObjectControllers;
 import p4_group_8_repo.Models.*;
 import p4_group_8_repo.MyStage;
-
 import java.util.Arrays;
 
 /**
@@ -20,71 +20,105 @@ import java.util.Arrays;
  */
 public class GameScreenView implements GameViews{
    private MyStage background = null;
-   private Animal animal = null;
+   private Actor animal;
+  // private Animal animal = null;
+   private ObjectControllers objectControllers;
    private final int level;
+   //private MyStage myStage;
 
     /**
      * Constructor that instantiates a new Game screen.
-     * Sets the level and the music boolean.
+     * Sets the level.
      *
      * @param level the level of the game
      */
-    public GameScreenView(int level){
+    public GameScreenView(int level, ObjectControllers objectControllers){
         this.level=level;
+        //this.actor=actor;
+        this.objectControllers = objectControllers;
     }
 
-
     /**
-     * Displays the game screen according to the levels chosen.
+     * Displays the game screen.
      *
      * @param stage the stage of the game application. Type Stage.
-     * @return a MyStage object which has the scenes of the different levels of the game.
+     * @return Scene object that will display the game screen
      */
     public Scene view(Stage stage){
         background = new MyStage();
 
-        var backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/iKogsKW.png",600,800,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        createBackButton(stage);
+        levels();
+        createMusicButton();
 
-        var backgroundImage2 = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background2.png",600,800,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        AnimationController animationController = new AnimationController(stage, background, animal.getObjectController());
+        animationController.start();
+        background.start();
 
-        var backgroundImage3 = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background3.png",600,800,false,true),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        return new Scene(background, 600,800);
+    }
 
+    /**
+     * Sets the background of the stage, and adds objects to it according to the level selected.
+     */
+    private void levels() {
+        if (level==1) {
+            var backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/iKogsKW.png",600,800,false,true),
+                    BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+            background.setBackground(new Background(backgroundImage));
+            addObjectsToStage(329,376,217,96,166,276,false);
+            addObstacle(1,false);
+        } else if (level==2) {
+            var backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background2.png",600,800,false,true),
+                    BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+            background.setBackground(new Background(backgroundImage));
+            addObjectsToStage(310,360,190,60,135,260,false);
+            addObstacle(2,true);
+        } else if (level==3){
+            var backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background3.png",600,800,false,true),
+                    BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+            background.setBackground(new Background(backgroundImage));
+            addObjectsToStage(310,360,190,60,135,260,true);
+            addObstacle(2,true);
+        } else {
+            System.out.println("No level chosen.");
+        }
+    }
+
+    /**
+     * Creates a back button that allows
+     * the user to go back to the levels menu
+     * from the game screen.
+     *
+     * @param stage stage of the application
+     */
+    private void createBackButton(Stage stage) {
         VBox vBox = new VBox();
         vBox.setLayoutX(559);
         vBox.setAlignment(Pos.TOP_RIGHT);
 
         Button backButton = new Button("Back");
         backButton.setOnAction(event3 -> {
+            GameViews gameView = new SelectViewFactory().getView("levels",0, null);
             try {
                 background.stopMusic();
-                stage.setScene(new LevelsMenuView().view(stage));
+                stage.setScene(gameView.view(stage));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
         vBox.getChildren().add(backButton);
         background.getChildren().add(vBox);
-        background.add(new Digit(0, 30, 360, 25));
+    }
 
-        if (level==1) {
-            background.setBackground(new Background(backgroundImage));
-            addBG(329,376,217,96,166,276,false);
-            addObstacle(1,false);
-        } else if (level==2) {
-            background.setBackground(new Background(backgroundImage2));
-            addBG(310,360,190,60,135,260,false);
-            addObstacle(2,true);
-        } else if (level==3){
-            background.setBackground(new Background(backgroundImage3));
-            addBG(310,360,190,60,135,260,true);
-            addObstacle(2,true);
-        } else {
-            System.out.println("No level chosen.");
-        }
-
+    /**
+     * Creates a music button on the screen that
+     * allows the user to turn the music on/off.
+     */
+    private void createMusicButton() {
         ToggleButton musicButton = new ToggleButton();
         musicButton.getStylesheets().add(this.getClass().getResource("button.css").toExternalForm());
 
@@ -95,27 +129,11 @@ public class GameScreenView implements GameViews{
             else
                 background.playMusic();
         });
-
-        AnimationController animationController = new AnimationController();
-        animationController.start(stage, animal.animalController, background);
-        background.start();
-
-        return new Scene(background, 600,800);
     }
 
-    /**
-     * Sets the Game Screen according to the level chosen.
-     *
-     * @param stage the stage of the application
-     */
-    public void setGameScreen(Stage stage) {
-        Scene scene = view(stage);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     /**
-     * This method adds obstacle objects to the game.
+     * This method adds Obstacle objects to the game.
      *
      * @param speed1    the speed of the obstacles
      * @param secondCar if we want a second car on the level or not
@@ -147,15 +165,18 @@ public class GameScreenView implements GameViews{
      * @param log2Y      the log 2 Y position
      * @param croc       boolean: true if crocodile should be added to the stage, false if not
      */
-    private void addBG(int logY, int turtleY, int wetTurtleY, int endY, int log3Y, int log2Y, boolean croc) {
+    private void addObjectsToStage(int logY, int turtleY, int wetTurtleY, int endY, int log3Y, int log2Y, boolean croc) {
         //these numbers represent the x coordinates of "end" aka the burrows the user
         //has to reach to win the game
+
         int a = 13;
         int b = 141;
         int y = b - a;
         int c = b + y;
         int d = c + y + 1;
         int x = c + y + y + 3;
+
+        background.add(new Digit(0, 30, 360, 25));
 
         for (int k : new int[]{0, 220, 645}) {
             background.add(new Log("file:src/p4_group_8_repo/images/log3.png", 150, k, log3Y, 0.75));
@@ -189,7 +210,10 @@ public class GameScreenView implements GameViews{
         }
 
         animal = new Animal();
+//        Actor actor = animalController.getActor();
         background.add(animal);
+        //objectControllers.setMyStage(background);
+        //animalController.addActorToScene(background);
     }
 
 }

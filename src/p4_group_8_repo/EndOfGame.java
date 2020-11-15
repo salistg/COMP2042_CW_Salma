@@ -2,33 +2,46 @@ package p4_group_8_repo;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import p4_group_8_repo.Controllers.AnimalController;
-import p4_group_8_repo.Views.EndScreenView;
+import p4_group_8_repo.Controllers.ObjectControllers;
+import p4_group_8_repo.Views.GameViews;
+import p4_group_8_repo.Views.SelectViewFactory;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * This class is responsible for what happens at the end of the game.
+ * Responsible for displaying the user's high score and the updating of the high scores file.
+ */
+
 public class EndOfGame {
+    //private final AnimalController animal;
+    private final ObjectControllers objectControllers;
+    private final Stage stage;
+
+    public EndOfGame(Stage stage, ObjectControllers objectControllers){
+        this.stage=stage;
+       // this.animal=animal;
+        this.objectControllers = objectControllers;
+    }
 
     /**
-     * This method is responsible for what happens when the user finishes the game.
-     * It displays a message with the user's high score,
+     * Displays a message with the user's high score,
      * makes a call to the UpdateFile method to update the scores file with the user's high score
-     * and changes the scene to display the End Screen.
-     *  @param stage   the stage of the application
-     * @param animal  the Animal object that the user plays with in the game
+     * and changes the scene to display the End Screen View.
      */
 
-    public void endDisplay(Stage stage, AnimalController animal){
+    public void endDisplay(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Congratulations!");
-        alert.setHeaderText("Your High Score: " + animal.getPoints());
-        updateFile(animal.getPoints());
+        alert.setHeaderText("Your High Score: " + objectControllers.getPoints());
+        updateFile(objectControllers.getPoints());
         alert.show();
 
+        GameViews gameViews = new SelectViewFactory().getView("end",0, null);
         try {
-            stage.setScene(new EndScreenView().view(stage));
+            stage.setScene(gameViews.view(stage));
             stage.show();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -36,8 +49,8 @@ public class EndOfGame {
     }
 
     /**
-     * This method is responsible for updating the scores file
-     * at the end of the game with the users high score.
+     * Updates the scores file
+     * at the end of the game with the user's high score.
      *
      * @param points the points earned in the game
      */

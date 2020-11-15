@@ -1,6 +1,8 @@
 package p4_group_8_repo.Views;
 
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -8,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.BackgroundImage;
 import javafx.stage.Stage;
 import p4_group_8_repo.MyStage;
-import p4_group_8_repo.Widgets;
 
 /**
  * This class is responsible for displaying the Start Screen
@@ -19,6 +20,8 @@ import p4_group_8_repo.Widgets;
 public class StartScreenView implements GameViews {
     private Scene helpScene = null;
     private Scene startScene = null;
+//    private GameViews gameView = null;
+//    private GameViews gameView2 = null;
 
     /**
      * Starts the game by displaying the main menu.
@@ -38,8 +41,8 @@ public class StartScreenView implements GameViews {
 
 
         Button startButton = new Button("Start game");
-        startButton.setOnAction(actionEvent ->
-                stage.setScene(new LevelsMenuView().view(stage)));
+        GameViews gameView = new SelectViewFactory().getView("levels",0, null);
+        startButton.setOnAction(actionEvent -> stage.setScene(gameView.view(stage)));
 
         Button helpButton = new Button("How to play the game");
         helpButton.setOnAction(actionEvent -> stage.setScene(helpScene));
@@ -48,19 +51,20 @@ public class StartScreenView implements GameViews {
         exitButton.setOnAction(actionEvent -> System.exit(1));
 
         Button highScoreButton = new Button("View High-scores");
+        GameViews gameView2 = new SelectViewFactory().getView("end",0, null);
         highScoreButton.setOnAction(actionEvent -> {
             try {
-                stage.setScene(new EndScreenView().view(stage));
+                stage.setScene(gameView2.view(stage));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
 
         VBox vBox = new VBox();
-        Widgets.vBoxLook(vBox, startButton);
-        Widgets.vBoxLook(vBox, helpButton);
-        Widgets.vBoxLook(vBox, exitButton);
-        Widgets.vBoxLook(vBox, highScoreButton);
+        vBoxLook(vBox, startButton);
+        vBoxLook(vBox, helpButton);
+        vBoxLook(vBox, exitButton);
+        vBoxLook(vBox, highScoreButton);
         vBox.getChildren().addAll(startButton,helpButton,highScoreButton,exitButton);
 
         startScene = new Scene(vBox,500,600);
@@ -78,6 +82,25 @@ public class StartScreenView implements GameViews {
         });
 
         return startScene;
+    }
+
+    /**
+     * Sets the preferred width, height, padding, alignment and spacing of
+     * a VBox and its buttons.
+     *
+     * @param vBox the VBox to set the preferences for
+     * @param button a button in the VBox
+     */
+
+    private void vBoxLook(VBox vBox, Button button) {
+        vBox.setPrefWidth(340);
+        vBox.setPrefHeight(50);
+        vBox.setSpacing(10);
+        vBox.setPadding(new Insets(0,20,10,20));
+        vBox.setAlignment(Pos.CENTER);
+
+        button.setMinWidth(vBox.getPrefWidth());
+        button.setMinHeight(vBox.getPrefHeight());
     }
 
 
