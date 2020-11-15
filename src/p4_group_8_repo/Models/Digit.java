@@ -1,6 +1,7 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.Image;
+import p4_group_8_repo.Controllers.ObjectControllers;
 
 /**
  * Digit class that extends the actor class.
@@ -16,6 +17,11 @@ public class Digit extends Actor {
 	 */
 	@Override
 	public void act(long now) {
+	}
+
+	@Override
+	public ObjectControllers getObjectController() {
+		return null;
 	}
 
 	/**

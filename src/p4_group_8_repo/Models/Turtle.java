@@ -1,6 +1,7 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.Image;
+import p4_group_8_repo.Controllers.ObjectControllers;
 import p4_group_8_repo.Models.Actor;
 
 /**
@@ -55,5 +56,10 @@ public class Turtle extends Actor {
 			setX(-200);
 		if (getX() < -75 && speed<0)
 			setX(600);
+	}
+
+	@Override
+	public ObjectControllers getObjectController() {
+		return null;
 	}
 }

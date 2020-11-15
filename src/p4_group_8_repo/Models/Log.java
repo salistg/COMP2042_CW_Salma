@@ -1,6 +1,7 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.Image;
+import p4_group_8_repo.Controllers.ObjectControllers;
 import p4_group_8_repo.Models.Actor;
 
 /**
@@ -21,6 +22,11 @@ public class Log extends Actor {
 			setX(-180);
 		if (getX()<-300 && speed<0)
 			setX(700);
+	}
+
+	@Override
+	public ObjectControllers getObjectController() {
+		return null;
 	}
 
 	/**
