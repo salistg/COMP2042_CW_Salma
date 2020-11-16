@@ -18,6 +18,16 @@ class ActorTest {
             public void act(long now) {
 
             }
+
+            @Override
+            public void playMusic() {
+
+            }
+
+            @Override
+            public void stopMusic() {
+
+            }
         };
         actor = new Actor() {
             @Override
