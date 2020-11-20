@@ -1,7 +1,7 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.Image;
-import p4_group_8_repo.Controllers.ObjectControllers;
+import p4_group_8_repo.Controllers.Controllers;
 
 /**
  * Wet turtle class that extends the Actor class.
@@ -89,7 +89,7 @@ public class WetTurtle extends Actor {
 	 * @return null as this class currently doesn't have a controller
 	 */
 	@Override
-	public ObjectControllers getObjectController() {
+	public Controllers getObjectController() {
 		return null;
 	}
 

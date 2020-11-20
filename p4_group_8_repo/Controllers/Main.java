@@ -2,9 +2,6 @@ package p4_group_8_repo.Controllers;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import p4_group_8_repo.Models.Actor;
-import p4_group_8_repo.Models.Animal;
-import p4_group_8_repo.MyStage;
 import p4_group_8_repo.Views.GameViews;
 import p4_group_8_repo.Views.SelectViewFactory;
 

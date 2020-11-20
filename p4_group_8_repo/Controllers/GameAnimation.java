@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 import p4_group_8_repo.Models.SelectModelFactory;
 import p4_group_8_repo.Views.GameViews;
 import p4_group_8_repo.Views.SelectViewFactory;
-import p4_group_8_repo.World;
+import p4_group_8_repo.Views.World;
 
 /**
  * This class is responsible for starting and stopping the animation of the objects of the game.
@@ -23,7 +23,7 @@ public class GameAnimation {
     /**
      * An ObjectController object that controls the actors in the game
      */
-  private final ObjectControllers objectControllers;
+  private final Controllers controllers;
     /**
      * A World object that contains the actors of the game
      */
@@ -34,12 +34,12 @@ public class GameAnimation {
      *
      * @param stage stage of the application
      * @param myStage the world that the Actors of the game are a part of
-     * @param objectControllers object controller for the controls of the actors
+     * @param controllers object controller for the controls of the actors
      */
-   public GameAnimation(Stage stage, World myStage, ObjectControllers objectControllers){
+   public GameAnimation(Stage stage, World myStage, Controllers controllers){
        this.stage=stage;
        this.myStage=myStage;
-       this.objectControllers = objectControllers;
+       this.controllers = controllers;
    }
 
     /**
@@ -68,10 +68,10 @@ public class GameAnimation {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (objectControllers.changeScore()) {
-                    setNumber(objectControllers.getPoints());
+                if (controllers.changeScore()) {
+                    setNumber(controllers.getPoints());
                 }
-                if (objectControllers.gameHasEnded()) {
+                if (controllers.gameHasEnded()) {
                     gameEnd();
                 }
             }
@@ -82,7 +82,7 @@ public class GameAnimation {
      * Stops the animation and the music at the end of the game.
      */
     void gameEnd(){
-        GameViews gameView = new SelectViewFactory().getView("endGame", 0, objectControllers, null,null);
+        GameViews gameView = new SelectViewFactory().getView("endGame", 0, controllers, null,null);
         System.out.print("Game Over\n");
         myStage.stopMusic();
         stop();

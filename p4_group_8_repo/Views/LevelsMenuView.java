@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import p4_group_8_repo.Models.SelectModelFactory;
-import p4_group_8_repo.MyStage;
 
 /**
  * This class is responsible for displaying the Levels Menu in
@@ -53,6 +52,12 @@ public class LevelsMenuView implements GameViews {
         Button level3Button = new Button("Level 3");
         level3Button.setOnAction(actionEvent -> gameScene(stage,3));
 
+        Button level4Button = new Button("Level 4");
+        level4Button.setOnAction(actionEvent -> gameScene(stage,4));
+
+        Button level5Button = new Button("Level 5");
+        level5Button.setOnAction(actionEvent -> gameScene(stage,5));
+
         Button backButton = new Button("Back to Main Menu");
         backButton.setOnAction(actionEvent -> {
             GameViews gameView = new SelectViewFactory().getView("start",0,null,null,null);
@@ -63,10 +68,12 @@ public class LevelsMenuView implements GameViews {
             }
         });
 
-        vBox.getChildren().addAll(level1Button,level2Button,level3Button,backButton);
+        vBox.getChildren().addAll(level1Button,level2Button,level3Button,level4Button,level5Button,backButton);
         vBoxSettings(vBox, level1Button);
         vBoxSettings(vBox,level2Button);
         vBoxSettings(vBox,level3Button);
+        vBoxSettings(vBox,level4Button);
+        vBoxSettings(vBox,level5Button);
         vBoxSettings(vBox,backButton);
     }
 

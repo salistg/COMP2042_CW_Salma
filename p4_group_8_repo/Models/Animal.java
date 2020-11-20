@@ -1,8 +1,8 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.Image;
-import p4_group_8_repo.Controllers.AnimalController;
-import p4_group_8_repo.Controllers.ObjectControllers;
+import p4_group_8_repo.Controllers.Controllers;
+import p4_group_8_repo.Controllers.SelectControllerFactory;
 
 
 /**
@@ -16,7 +16,7 @@ public class Animal extends Actor {
 	 * AnimalController object instantiated to allow
 	 * for the different controls of the Animal object.
 	 */
-	private final AnimalController animalController = new AnimalController(this);
+	private final Controllers animalController = new SelectControllerFactory().getController(1, this);
 
 	/**
 	 * Constructor to instantiate a new Animal.
@@ -34,7 +34,7 @@ public class Animal extends Actor {
 	 * {@inheritDoc}
 	 * @return AnimalController object
 	 */
-	public ObjectControllers getObjectController(){
+	public Controllers getObjectController(){
 		return animalController;
 	}
 
