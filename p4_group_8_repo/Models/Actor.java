@@ -1,8 +1,8 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.ImageView;
-import p4_group_8_repo.Controllers.ObjectControllers;
-import p4_group_8_repo.World;
+import p4_group_8_repo.Controllers.Controllers;
+import p4_group_8_repo.Views.World;
 
 import java.util.ArrayList;
 
@@ -65,6 +65,6 @@ public abstract class Actor extends ImageView{
      * Gets the Actor object's current controller.
      * @return the controller
      */
-    public abstract ObjectControllers getObjectController();
+    public abstract Controllers getObjectController();
 
 }

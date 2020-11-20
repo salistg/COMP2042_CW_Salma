@@ -9,7 +9,6 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import p4_group_8_repo.Controllers.GameAnimation;
 import p4_group_8_repo.Models.*;
-import p4_group_8_repo.World;
 
 /**
  * This class is responsible for displaying the game screen view
@@ -21,7 +20,7 @@ public class GameScreenView implements GameViews{
     /**
      * The World that currently has all the game's actors in it
      */
-   private World background;
+   private final World background;
     /**
      * the main playable actor in the game
      */
@@ -66,28 +65,44 @@ public class GameScreenView implements GameViews{
      * Sets the background of the stage, and adds objects to it according to the level selected.
      */
     private void levels() {
-        if (level==1) {
-            var backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/iKogsKW.png",600,800,false,true),
-                    BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-
+        if (level==1 || level==4) {
+            BackgroundImage backgroundImage;
+            if(level==1){
+                backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/iKogsKW.png",600,800,false,true),
+                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+                addObstacle(1,false);
+            } else {
+                 backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background7.png", 600,800,false,true),
+                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+                waterLevels(-2, false);
+            }
             background.setBackground(new Background(backgroundImage));
             addActorsToStage(329,376,217,96,166,276,false);
-            addObstacle(1,false);
-        } else if (level==2) {
-            var backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background2.png",600,800,false,true),
-                    BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-
+        } else if (level==2 || level==3) {
+            boolean croc;
+            BackgroundImage backgroundImage;
+            if(level==2){
+                backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background2.png", 600, 800, false, true),
+                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+                croc=false;
+            } else {
+                backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background3.png", 600, 800, false, true),
+                        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+                croc=true;
+            }
             background.setBackground(new Background(backgroundImage));
-            addActorsToStage(310,360,190,60,135,260,false);
-            addObstacle(2,true);
-        } else if (level==3){
-            var backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background3.png",600,800,false,true),
-                    BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
-            background.setBackground(new Background(backgroundImage));
-            addActorsToStage(310,360,190,60,135,260,true);
+            addActorsToStage(310,360,190,60,135,260,croc);
             addObstacle(2,true);
-        } else {
+        } else if(level==5){
+            var backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background8.png", 600, 800, false, true),
+                    BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+            background.setBackground(new Background(backgroundImage));
+
+            waterLevels(-3, true);
+            addActorsToStage(329,376,217,96,166,276,true);
+        }
+        else {
             System.out.println("No level chosen.");
         }
     }
@@ -135,9 +150,8 @@ public class GameScreenView implements GameViews{
         });
     }
 
-
     /**
-     * This method adds Obstacle objects to the game.
+     * Adds Obstacle objects to the game.
      *
      * @param speed    the speed of the obstacles
      * @param secondCar if a second car is needed on the level
@@ -160,8 +174,8 @@ public class GameScreenView implements GameViews{
     }
 
     /**
-     * This method adds Actors such as Logs or Turtles to the stage as well
-     * as the main animal object that the user plays with.
+     * Adds Actor objects such as Logs or Turtles to the stage as well
+     * as the main Animal object that the user plays with.
      *
      * @param logY       the log's Y position
      * @param turtleY    the turtle's Y position
@@ -181,8 +195,7 @@ public class GameScreenView implements GameViews{
         int c = b + y;
         int d = c + y + 1;
         int x = c + y + y + 3;
-
-        background.add(new SelectModelFactory().getActor(2, 360,25,30,30,0));
+        background.add(new SelectModelFactory().getActor(2, 360,25,30,0,0));
 
         for (int k : new int[]{0, 220, 645}) {
             background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png", k, log3Y, 0.75,150));
@@ -190,7 +203,6 @@ public class GameScreenView implements GameViews{
         if(croc) {
             background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png", 440, log3Y, 0.75, 150 ));
             background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/redCroc.png", 140, log3Y, 2, 120) );
-
         }
 
         for (int k : new int[]{0, 400}) {
@@ -208,8 +220,8 @@ public class GameScreenView implements GameViews{
         for (int j : new int[]{500, 300}) {
             background.add(new SelectModelFactory().getActor(3, j, turtleY,130,-1,0));
         }
-
         background.add(new SelectModelFactory().getActor(4,700,turtleY,130,-1,0));
+
         for (int j = 600; j >= 200; j -= 200) {
             background.add(new SelectModelFactory().getActor(4,j,wetTurtleY,130,-1,0));
 
@@ -221,6 +233,46 @@ public class GameScreenView implements GameViews{
 
         animal = new SelectModelFactory().getAnimal();
         background.add(animal);
+    }
+
+    /**
+     * Adds Actor objects to levels that are water based i.e
+     * levels that are mainly on a river without roads
+     * as compared to other levels.
+     *
+     * @param logSpeed speed of Log objects
+     * @param car boolean as to whether to add an Obstacle, car, or not
+     */
+    private void waterLevels(int logSpeed, boolean car){
+
+        for (int i = 0; i <= 540; i += 270) {
+            background.add(new SelectModelFactory().getActor(3, i, 649,130,-1,0));
+        }
+        for (int i : new int[]{135, 405}) {
+            background.add(new SelectModelFactory().getActor(4, i,649,130,-1,0));
+        }
+
+        for (int i : new int[]{0, 600, 200}) {
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/crocodile.png", i, 597, 1.5,160));
+        }
+
+        for (int i = 0; i <= 540; i += 135) {
+            background.add(new SelectModelFactory().getActor(4, i, 540,130,-1,0));
+        }
+
+        for (int i : new int[]{340, 830}) {
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png", i, 500, logSpeed,150));
+        }
+        for (int i : new int[]{500, 1000}) {
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/logs.png", i, 500, logSpeed,300));
+        }
+
+        if(car) {
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/car1Left.png", 0, 440, -4, 50));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/car1Right.png", 540, 440, 2, 50));
+        } else
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/redCroc.png",100 , 440, 1.5,100));
+
 
     }
 

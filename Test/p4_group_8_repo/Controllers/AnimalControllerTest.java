@@ -1,17 +1,11 @@
 package p4_group_8_repo.Controllers;
 
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.robot.Robot;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import p4_group_8_repo.JavaFXThreadingRule;
 import p4_group_8_repo.Models.*;
-import p4_group_8_repo.MyStage;
+import p4_group_8_repo.Views.MyStage;
 
 import static org.junit.Assert.*;
 
@@ -312,25 +306,6 @@ public class AnimalControllerTest {
 //
 //    }
 
-    @Test
-    public void testKeyPress(){
-//        Robot robot = new Robot();
-//        robot.keyPress(KeyCode.W);
-//       MyStage stage = new MyStage();
-//        stage.add(animalController.getActor());
-//
-//        stage.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-//            if(key.getCode()==KeyCode.W) {
-//                animalController.getActor().move(0, -movement);
-//            }
-//        });
-      
-        //animalController.animalKeyPress();
-        //animal moves so y position should change
-        //x should stay the same
-        assertEquals(originalX,animalController.getActor().getX(),0.0001);
-        assertNotEquals(originalY,animalController.getActor().getY());
-    }
 
     @Test
     public void testChangeScoreReturnsFalse(){

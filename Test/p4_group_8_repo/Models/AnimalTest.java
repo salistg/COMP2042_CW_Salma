@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import p4_group_8_repo.Controllers.AnimalController;
-import p4_group_8_repo.Controllers.ObjectControllers;
+import p4_group_8_repo.Controllers.Controllers;
 import p4_group_8_repo.JavaFXThreadingRule;
-import p4_group_8_repo.MyStage;
+import p4_group_8_repo.Views.MyStage;
 
 import static org.junit.Assert.*;
 
@@ -48,8 +48,8 @@ public class AnimalTest {
     @Test
     public void testGettingObjectController(){
         Assert.assertNotNull(animal.getObjectController());
-        ObjectControllers objectControllers = new AnimalController(animal);
-        assertEquals(objectControllers.getClass(), animal.getObjectController().getClass());
+        Controllers controllers = new AnimalController(animal);
+        assertEquals(controllers.getClass(), animal.getObjectController().getClass());
     }
 
     @Test

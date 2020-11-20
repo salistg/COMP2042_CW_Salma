@@ -1,63 +1,102 @@
 package p4_group_8_repo.Controllers;
 
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+//import javafx.scene.input.KeyCode;
+//import javafx.scene.input.KeyEvent;
 import p4_group_8_repo.Models.*;
 
 /**
  * A controller class for the Animal model following the MVC pattern.
  * It contains all the methods responsible for the actions of an Animal object
- * such as keypresses and intersection with other objects.
+ * such as key-presses and intersection with other objects.
  */
-public class AnimalController implements ObjectControllers {
-    private final Image imgW1;
-    private final Image imgA1;
-    private final Image imgS1;
-    private final Image imgD1;
-    private final Image imgW2;
-    private final Image imgA2;
-    private final Image imgS2;
-    private final Image imgD2;
-    private int points = 0; //points the user scores as the animal moves
-    private int end = 0; //number of burrows the user reaches with the animal
-    private boolean second = false; //to indicate if the frog is on the second half of animation
-    private boolean noMove = false; //to indicate if the frog is moving or no
-    private final double movement = 13.3333333 * 2; //movement of the animal character along the Y axis
-    private final double movementX = 10.666666 * 2; //movement along the X axis
-    private final int imgSize = 40; //image size
-    private boolean carDeath = false; //variable for death by a car (obstacle) object
-    private boolean waterDeath = false; //variable for death by water
-    private boolean changeScore = false; //variable for score change as the user plays
-    private int deaths = 0; //variable to indicate the number of deaths
-    private double w = 800; //width of the game screen
+public class AnimalController implements Controllers {
+    /**
+     * points the user scores as they play the game
+     */
+    private int points = 0;
+    /**
+     * number of burrows the user reaches with the Actor object
+     */
+    private int end = 0;
+//    /**
+//     * to indicate if the frog is on the second half of animation
+//     */
+//    private final boolean second = false;
+    /**
+     * to indicate if the Actor object should be moving or not
+     */
+    private boolean noMove = false;
+    /**
+     * movement of the Actor object along the Y axis
+     */
+    private final double movement = 13.3333333 * 2;
+    //private final double movementX = 10.666666 * 2; //movement along the X axis
+    /**
+     * image size
+     */
+    private final int imgSize = 40;
+    /**
+     * variable for death by a car (obstacle) object
+     */
+    private boolean carDeath = false;
+    /**
+     * variable for death by water
+     */
+    private boolean waterDeath = false;
+    /**
+     * variable for score change as the user plays
+     */
+    private boolean changeScore = false;
+    /**
+     * variable to indicate the number of deaths
+     */
+    private int deaths = 0;
+    /**
+     * Actor object that the user will control in the game
+     */
     private final Actor animal;
+    /**
+     * ActorMovement object to control the movement of the Actor
+     */
+    private final Controllers actorMovementController;
 
     /**
      * Constructor to instantiate a new AnimalController.
-     * Instantiates the Image objects and sets the different images of the Animal.
-     * Sets the Animal object.
+     * Sets the Animal and ActorMovement objects.
      */
-
-    public AnimalController(Actor animal){
-        imgW1 = new Image("file:src/p4_group_8_repo/images/froggerUp.png", imgSize, imgSize, true, true);
-        imgA1 = new Image("file:src/p4_group_8_repo/images/froggerLeft.png", imgSize, imgSize, true, true);
-        imgS1 = new Image("file:src/p4_group_8_repo/images/froggerDown.png", imgSize, imgSize, true, true);
-        imgD1 = new Image("file:src/p4_group_8_repo/images/froggerRight.png", imgSize, imgSize, true, true);
-        imgW2 = new Image("file:src/p4_group_8_repo/images/froggerUpJump.png", imgSize, imgSize, true, true);
-        imgA2 = new Image("file:src/p4_group_8_repo/images/froggerLeftJump.png", imgSize, imgSize, true, true);
-        imgS2 = new Image("file:src/p4_group_8_repo/images/froggerDownJump.png", imgSize, imgSize, true, true);
-        imgD2 = new Image("file:src/p4_group_8_repo/images/froggerRightJump.png", imgSize, imgSize, true, true);
-        this.animal=animal;
+    public AnimalController(Actor animal) {
+//        Image imgW1 = new Image("file:src/p4_group_8_repo/images/froggerUp.png", imgSize, imgSize, true, true);
+//        Image imgA1 = new Image("file:src/p4_group_8_repo/images/froggerLeft.png", imgSize, imgSize, true, true);
+//        Image imgS1 = new Image("file:src/p4_group_8_repo/images/froggerDown.png", imgSize, imgSize, true, true);
+//        Image imgD1 = new Image("file:src/p4_group_8_repo/images/froggerRight.png", imgSize, imgSize, true, true);
+//        Image imgW2 = new Image("file:src/p4_group_8_repo/images/froggerUpJump.png", imgSize, imgSize, true, true);
+//        Image imgA2 = new Image("file:src/p4_group_8_repo/images/froggerLeftJump.png", imgSize, imgSize, true, true);
+//        Image imgS2 = new Image("file:src/p4_group_8_repo/images/froggerDownJump.png", imgSize, imgSize, true, true);
+//        Image imgD2 = new Image("file:src/p4_group_8_repo/images/froggerRightJump.png", imgSize, imgSize, true, true);
+        this.animal = animal;
+        actorMovementController = new SelectControllerFactory().getController(2,animal);
     }
 
+    /**
+     * {@inheritDoc}
+     * @return Animal object
+     */
     public Actor getActor() {
         return animal;
     }
 
+    /**
+     * {@inheritDoc}
+     * Main controls for this class are how the animal should
+     * act when it intersects with other objects,
+     * when it dies and when keys are pressed or released.
+     *
+     * @param now the current timestamp of the frame in nanoseconds
+     */
     public void mainControl(long now) {
-        animalKeyRelease();
-        animalKeyPress();
+
+        actorMovementController.mainControl(now);
 
         if (animal.getY() < 0 || animal.getY() > 734) {
             animal.setX(300);
@@ -76,71 +115,94 @@ public class AnimalController implements ObjectControllers {
 
         atIntersection();
     }
+//
+//    /**
+//     * Setting what the Animal object should do
+//     * when keys are pressed.
+//     *
+//     * Animal.setOnKeyPressed
+//     */
+//    public  void animalKeyPress() {
+//        animal.setOnKeyPressed(event -> {
+//            if (second) {
+//                if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
+//                    animal.move(0, -movement);
+//                    changeScore = false;
+//                    animal.setImage(imgW1);
+//                    second = false;
+//                } else {
+//                    keyAction(event);
+//                }
+//            } else if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
+//                animal.move(0, -movement);
+//                animal.setImage(imgW2);
+//                second = true;
+//            } else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
+//                animal.move(-movementX, 0);
+//                animal.setImage(imgA2);
+//                second = true;
+//            } else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
+//                animal.move(0, movement);
+//                animal.setImage(imgS2);
+//                second = true;
+//            } else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
+//                animal.move(movementX, 0);
+//                animal.setImage(imgD2);
+//                second = true;
+//            }
+//
+//        });
+//    }
+//
+//    /**
+//     * Setting what the Animal object should do
+//     * when keys are released.
+//     *
+//     * Animal.setOnKeyReleased
+//     */
+//    public void animalKeyRelease() {
+//        animal.setOnKeyReleased(event -> {
+//            if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
+//                if (animal.getY() < w) {
+//                    changeScore = true;
+//                    w = animal.getY();
+//                    points += 10;
+//                }
+//                animal.move(0, -movement);
+//                animal.setImage(imgW1);
+//                second = false;
+//            } else keyAction(event);
+//
+//        });
+//    }
+//
+//    /**
+//     * A series of events that occur when a
+//     * set of keys are pressed.
+//     *
+//     * @param event key press/release
+//     */
+//    private void keyAction(KeyEvent event) {
+//        if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
+//            animal.move(-movementX, 0);
+//            animal.setImage(imgA1);
+//            second = false;
+//        } else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
+//            animal.move(0, movement);
+//            animal.setImage(imgS1);
+//            second = false;
+//        } else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
+//            animal.move(movementX, 0);
+//            animal.setImage(imgD1);
+//            second = false;
+//        }
+//    }
 
-    public  void animalKeyPress() {
-        animal.setOnKeyPressed(event -> {
-            if (second) {
-                if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
-                    animal.move(0, -movement);
-                    changeScore = false;
-                    animal.setImage(imgW1);
-                    second = false;
-                } else {
-                    keyAction(event);
-                }
-            } else if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
-                animal.move(0, -movement);
-                animal.setImage(imgW2);
-                second = true;
-            } else if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
-                animal.move(-movementX, 0);
-                animal.setImage(imgA2);
-                second = true;
-            } else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
-                animal.move(0, movement);
-                animal.setImage(imgS2);
-                second = true;
-            } else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
-                animal.move(movementX, 0);
-                animal.setImage(imgD2);
-                second = true;
-            }
-
-        });
-    }
-
-    public void animalKeyRelease() {
-        animal.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyCode.W || event.getCode() == KeyCode.UP) {
-                if (animal.getY() < w) {
-                    changeScore = true;
-                    w = animal.getY();
-                    points += 10;
-                }
-                animal.move(0, -movement);
-                animal.setImage(imgW1);
-                second = false;
-            } else keyAction(event);
-
-        });
-    }
-
-    private void keyAction(KeyEvent event) {
-        if (event.getCode() == KeyCode.A || event.getCode() == KeyCode.LEFT) {
-            animal.move(-movementX, 0);
-            animal.setImage(imgA1);
-            second = false;
-        } else if (event.getCode() == KeyCode.S || event.getCode() == KeyCode.DOWN) {
-            animal.move(0, movement);
-            animal.setImage(imgS1);
-            second = false;
-        } else if (event.getCode() == KeyCode.D || event.getCode() == KeyCode.RIGHT) {
-            animal.move(movementX, 0);
-            animal.setImage(imgD1);
-            second = false;
-        }
-    }
-
+    /**
+     * This method includes all events that occur
+     * when the Actor object intersects with
+     * other objects such as End or Obstacle objects.
+     */
     private void atIntersection() {
         if (animal.getIntersectingObjects(Obstacle.class).size() >= 1) {
             setCarDeath(true);
@@ -148,7 +210,7 @@ public class AnimalController implements ObjectControllers {
             if (animal.getIntersectingObjects(Log.class).get(0).getLeft())
                 animal.move(-2, 0);
             else
-                animal.move(.75, 0);
+                animal.move(1.5, 0);
         } else if (animal.getIntersectingObjects(Turtle.class).size() >= 1 && !getMove()) {
             animal.move(-1, 0);
         } else if (animal.getIntersectingObjects(WetTurtle.class).size() >= 1) {
@@ -165,7 +227,7 @@ public class AnimalController implements ObjectControllers {
             }
             points += 50;
             changeScore = true;
-            w = 800;
+           // double w = 800; //width of the game screen
             animal.getIntersectingObjects(End.class).get(0).setEnd();
             end++;
             animal.setX(300);
@@ -175,6 +237,13 @@ public class AnimalController implements ObjectControllers {
         }
     }
 
+    /**
+     * Sets the image of the Actor object and reduces points
+     * when the Actor dies after intersecting with
+     * an Obstacle object or by drowning.
+     *
+     * @param now timestamp of the current frame in nanoseconds
+     */
     private void death(long now) {
         if (getCarDeath()) {
             setNoMove(true);
@@ -186,11 +255,11 @@ public class AnimalController implements ObjectControllers {
                 case 2 -> animal.setImage(new Image("file:src/p4_group_8_repo/images/cardeath2.png", imgSize, imgSize, true, true));
                 case 3 -> animal.setImage(new Image("file:src/p4_group_8_repo/images/cardeath3.png", imgSize, imgSize, true, true));
                 case 4 -> {
-                    resetAfterDeath();
-                    if(points>50) {
+                    if((points+ actorMovementController.getPoints())>=50) {
                         points -= 50;
                         changeScore = true;
                     }
+                    resetAfterDeath();
                     setCarDeath(false);
                 }
             }
@@ -207,11 +276,11 @@ public class AnimalController implements ObjectControllers {
                 case 3 -> animal.setImage(new Image("file:src/p4_group_8_repo/images/waterdeath3.png", imgSize, imgSize, true, true));
                 case 4 -> animal.setImage(new Image("file:src/p4_group_8_repo/images/waterdeath4.png", imgSize, imgSize, true, true));
                 case 5 -> {
-                    resetAfterDeath();
-                    if(points>50) {
+                    if((points+ actorMovementController.getPoints())>=50) {
                         points -= 50;
                         changeScore = true;
                     }
+                    resetAfterDeath();
                     setWaterDeath(false);
                 }
             }
@@ -247,29 +316,7 @@ public class AnimalController implements ObjectControllers {
      * @return points
      */
     public int getPoints() {
-        return points;
-    }
-    public boolean getMove(){
-        return noMove;
-    }
-    public boolean getCarDeath(){
-        return carDeath;
-    }
-    public boolean getWaterDeath(){
-        return waterDeath;
-    }
-    public int getDeaths(){
-        return deaths;
-    }
-
-    private void setNoMove(boolean noMove){
-        this.noMove=noMove;
-    }
-    private void setWaterDeath(Boolean waterDeath){
-        this.waterDeath=waterDeath;
-    }
-    private void setCarDeath(Boolean carDeath){
-        this.carDeath = carDeath;
+        return points + actorMovementController.getPoints();
     }
 
     /**
@@ -278,11 +325,82 @@ public class AnimalController implements ObjectControllers {
      * @return true if score changed, false otherwise
      */
     public boolean changeScore() {
-        if (changeScore) {
+        if (changeScore || actorMovementController.changeScore()) {
             changeScore = false;
             return true;
         }
         return false;
+    }
+
+    /**
+     * Gets the noMove variable.
+     * Indicates whether the Actor object
+     * is currently moving.
+     *
+     * @return current state of the noMove variable (true/false)
+     */
+    public boolean getMove(){
+        return noMove;
+    }
+
+    /**
+     * Gets the carDeath variable.
+     * Indicates whether the Actor object
+     * has died a death of type carDeath.
+     *
+     * @return current state of the carDeath variable (true/false)
+     */
+    public boolean getCarDeath(){
+        return carDeath;
+    }
+
+    /**
+     * Gets the waterDeath variable.
+     * Indicates whether the Actor object
+     * has died a death of type waterDeath.
+     *
+     * @return current state of the waterDeath variable (true/false)
+     */
+    public boolean getWaterDeath(){
+        return waterDeath;
+    }
+
+    /**
+     * Gets the deaths variable
+     * which is the number of deaths the Actor
+     * object has had so far.
+     *
+     * @return number of deaths
+     */
+    public int getDeaths(){
+        return deaths;
+    }
+
+    /**
+     * Sets the noMove variable.
+     *
+     * @param noMove variable for movement
+     */
+    private void setNoMove(boolean noMove){
+        this.noMove=noMove;
+    }
+
+    /**
+     * Sets the waterDeath variable.
+     *
+     * @param waterDeath variable for waterDeath
+     */
+    private void setWaterDeath(Boolean waterDeath){
+        this.waterDeath=waterDeath;
+    }
+
+    /**
+     * Sets the carDeath variable.
+     *
+     * @param carDeath variable for carDeath.
+     */
+    private void setCarDeath(Boolean carDeath){
+        this.carDeath = carDeath;
     }
 
 

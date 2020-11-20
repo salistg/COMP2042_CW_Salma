@@ -1,8 +1,7 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.Image;
-import p4_group_8_repo.Controllers.ObjectControllers;
-import p4_group_8_repo.Models.Actor;
+import p4_group_8_repo.Controllers.Controllers;
 
 /**
  * Turtle class that inherits the Actor class.
@@ -76,7 +75,7 @@ public class Turtle extends Actor {
 	 * @return null as this class currently doesn't have a controller
 	 */
 	@Override
-	public ObjectControllers getObjectController() {
+	public Controllers getObjectController() {
 		return null;
 	}
 }

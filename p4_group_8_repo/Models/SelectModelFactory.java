@@ -2,13 +2,19 @@ package p4_group_8_repo.Models;
 
 /**
  * Factory class following the Factory Design Pattern.
- * Instantiates different Actor objects depending on
- * the one chosen by the client class calling this factory class.
+ * Allows the caller to select which Actor object
+ * to instantiate.
+ *
+ * This reduces coupling between classes
+ * as the caller is not dependent on the class they're calling directly.
+ * If any changes occur to the class being called, the changes
+ * will only be reflected on the factory class while
+ * the caller remains in the unknown about it.
  */
 public class SelectModelFactory {
 
     /**
-     * Instantiates different Actor objects that do need
+     * Instantiates different Actor objects that don't need
      * any image setting in their constructor.
      * Instantiates End, Digit, Turtle and WetTurtle objects depending
      * on the client class' selection.
@@ -56,7 +62,7 @@ public class SelectModelFactory {
      * @return         either a Log or an Obstacle object depending on the imageLink
      */
     public Actor getActorWithImage(String imageLink, int x, int y, double s, int dim){
-       if(imageLink.contains("log")){
+       if(imageLink.contains("log") || imageLink.contains("crocodile")){
            return new Log(imageLink,dim,x,y,s);
        } else {
            return new Obstacle(imageLink,x,y,s,dim);

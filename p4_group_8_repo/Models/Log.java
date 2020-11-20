@@ -1,7 +1,7 @@
 package p4_group_8_repo.Models;
 
 import javafx.scene.image.Image;
-import p4_group_8_repo.Controllers.ObjectControllers;
+import p4_group_8_repo.Controllers.Controllers;
 
 /**
  * Log class that extends from the Actor class.
@@ -32,7 +32,7 @@ public class Log extends Actor {
 	 * @return null as this class currently doesn't have a controller class
 	 */
 	@Override
-	public ObjectControllers getObjectController() {
+	public Controllers getObjectController() {
 		return null;
 	}
 
