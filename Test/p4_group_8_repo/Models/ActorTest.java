@@ -2,8 +2,8 @@ package p4_group_8_repo.Models;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import p4_group_8_repo.Controllers.ObjectControllers;
-import p4_group_8_repo.World;
+import p4_group_8_repo.Controllers.Controllers;
+import p4_group_8_repo.Views.World;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +36,7 @@ class ActorTest {
             }
 
             @Override
-            public ObjectControllers getObjectController() {
+            public Controllers getObjectController() {
                 return null;
             }
         };

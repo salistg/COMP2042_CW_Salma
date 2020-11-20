@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import p4_group_8_repo.JavaFXThreadingRule;
-import p4_group_8_repo.MyStage;
+import p4_group_8_repo.Views.MyStage;
 
 import java.util.ArrayList;
 
