@@ -14,9 +14,9 @@ public class AnimalControllerTest {
     public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
     private AnimalController animalController;
-    private double movement = 13.3333333 * 2;
-    private double originalX = 300;
-    private double originalY = 679.8 + (13.3333333 * 2);
+    private final double movement = 13.3333333 * 2;
+    private final double originalX = 300;
+    private final double originalY = 679.8 + (13.3333333 * 2);
 
     @Before
     public void setUp() throws Exception {

@@ -48,8 +48,6 @@ public class GameScreenViewTest {
         assertEquals(2, myStage.getChildren().size());
         assertEquals(VBox.class, myStage.getChildren().get(0).getClass());
         assertEquals(ToggleButton.class, myStage.getChildren().get(1).getClass());
-
-
     }
 
     @Test
@@ -169,7 +167,7 @@ public class GameScreenViewTest {
         //make sure that it has all the children
         //it should have 37 children
         assertEquals(37, myStage.getChildren().size());
-        assertEquals(8, myStage.getObjects(Log.class).size());
+        assertEquals(9, myStage.getObjects(Log.class).size());
         assertEquals(13, myStage.getObjects(Obstacle.class).size());
         assertEquals(2, myStage.getObjects(Turtle.class).size());
         assertEquals(4, myStage.getObjects(WetTurtle.class).size());

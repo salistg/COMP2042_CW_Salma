@@ -71,6 +71,16 @@ public class StartScreenViewTest {
     }
 
     @Test
+    public void testVBoxBackgroundIsSet(){
+        Scene scene = startScreenView.view(stage);
+        VBox vBox = (VBox) scene.getRoot();
+
+        assertNotNull(vBox.getBackground());
+       assertFalse(vBox.getBackground().isEmpty());
+       assertEquals(1, vBox.getBackground().getImages().toArray().length);
+    }
+
+    @Test
     public void testStartButtonAdded(){
 //        javafx.scene.control.Button button = (Button) vBox.getChildren().get(0);
 //        assertEquals("Back", button.getText());
