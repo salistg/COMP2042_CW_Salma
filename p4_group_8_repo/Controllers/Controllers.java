@@ -15,12 +15,6 @@ public interface Controllers {
     void mainControl(long now);
 
     /**
-     * Gets the actor of the controller.
-     * @return Actor object
-     */
-    Actor getActor();
-
-    /**
      * Returns whether the game has ended or not.
      *
      * @return true if it ended, false if it hasn't

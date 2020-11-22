@@ -90,6 +90,7 @@ public class EndScreenView implements GameViews {
         }
 
         ObservableList<ScoresData> details = FXCollections.observableArrayList(list);
+
         TableView<ScoresData> tableView = new TableView<>();
         TableColumn<ScoresData, String> col2 = new TableColumn<>("High Scores");
         col2.setPrefWidth(250);

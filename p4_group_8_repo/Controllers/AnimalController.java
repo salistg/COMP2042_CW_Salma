@@ -59,7 +59,7 @@ public class AnimalController implements Controllers {
     /**
      * ActorMovement object to control the movement of the Actor
      */
-    private final Controllers actorMovementController;
+    private final AnimalMovement actorMovementController;
 
     /**
      * Constructor to instantiate a new AnimalController.
@@ -75,7 +75,7 @@ public class AnimalController implements Controllers {
 //        Image imgS2 = new Image("file:src/p4_group_8_repo/images/froggerDownJump.png", imgSize, imgSize, true, true);
 //        Image imgD2 = new Image("file:src/p4_group_8_repo/images/froggerRightJump.png", imgSize, imgSize, true, true);
         this.animal = animal;
-        actorMovementController = new SelectControllerFactory().getController(2,animal);
+        actorMovementController = new AnimalMovement(animal);
     }
 
     /**
@@ -96,7 +96,7 @@ public class AnimalController implements Controllers {
      */
     public void mainControl(long now) {
 
-        actorMovementController.mainControl(now);
+        actorMovementController.movement();
 
         if (animal.getY() < 0 || animal.getY() > 734) {
             animal.setX(300);
@@ -205,17 +205,19 @@ public class AnimalController implements Controllers {
      */
     private void atIntersection() {
         if (animal.getIntersectingObjects(Obstacle.class).size() >= 1) {
-            setCarDeath(true);
-        } else if (animal.getIntersectingObjects(Log.class).size() >= 1 && !getMove()) {
+            carDeath=true;
+           // setCarDeath(true);
+        } else if (animal.getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
             if (animal.getIntersectingObjects(Log.class).get(0).getLeft())
                 animal.move(-2, 0);
             else
-                animal.move(1.5, 0);
-        } else if (animal.getIntersectingObjects(Turtle.class).size() >= 1 && !getMove()) {
+                animal.move(.75, 0);
+        } else if (animal.getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
             animal.move(-1, 0);
         } else if (animal.getIntersectingObjects(WetTurtle.class).size() >= 1) {
             if (animal.getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
-                setWaterDeath(true);
+                //setWaterDeath(true);
+                waterDeath=true;
             } else {
                 animal.move(-1, 0);
             }
@@ -223,9 +225,9 @@ public class AnimalController implements Controllers {
             if (animal.getIntersectingObjects(End.class).get(0).isActivated()) {
                 animal.getIntersectingObjects(End.class).get(0).returnToOriginal();
                 end--;
-                points -= 50;
+                points -= 150;
             }
-            points += 50;
+            points += 150;
             changeScore = true;
            // double w = 800; //width of the game screen
             animal.getIntersectingObjects(End.class).get(0).setEnd();
@@ -233,7 +235,8 @@ public class AnimalController implements Controllers {
             animal.setX(300);
             animal.setY(679.8 + movement);
         } else if (animal.getY() < 413) {
-          setWaterDeath(true);
+          waterDeath=true;
+            //setWaterDeath(true);
         }
     }
 
@@ -245,8 +248,9 @@ public class AnimalController implements Controllers {
      * @param now timestamp of the current frame in nanoseconds
      */
     private void death(long now) {
-        if (getCarDeath()) {
-            setNoMove(true);
+        if (carDeath) {
+            //setNoMove(true);
+            noMove = true;
             if (now % 11 == 0) {
                 deaths++;
             }
@@ -255,18 +259,20 @@ public class AnimalController implements Controllers {
                 case 2 -> animal.setImage(new Image("file:src/p4_group_8_repo/images/cardeath2.png", imgSize, imgSize, true, true));
                 case 3 -> animal.setImage(new Image("file:src/p4_group_8_repo/images/cardeath3.png", imgSize, imgSize, true, true));
                 case 4 -> {
-                    if((points+ actorMovementController.getPoints())>=50) {
-                        points -= 50;
+                    if((points+actorMovementController.getPoints())>=100) {
+                        points -= 100;
                         changeScore = true;
                     }
                     resetAfterDeath();
-                    setCarDeath(false);
+                    carDeath=false;
+                   // setCarDeath(false);
                 }
             }
 
         }
-        if (getWaterDeath()) {
-            setNoMove(true);
+        if (waterDeath) {
+           // setNoMove(true);
+            noMove = true;
             if (now % 11 == 0) {
                 deaths++;
             }
@@ -276,12 +282,13 @@ public class AnimalController implements Controllers {
                 case 3 -> animal.setImage(new Image("file:src/p4_group_8_repo/images/waterdeath3.png", imgSize, imgSize, true, true));
                 case 4 -> animal.setImage(new Image("file:src/p4_group_8_repo/images/waterdeath4.png", imgSize, imgSize, true, true));
                 case 5 -> {
-                    if((points+ actorMovementController.getPoints())>=50) {
-                        points -= 50;
+                    if((points+actorMovementController.getPoints())>=100) {
+                        points -= 100;
                         changeScore = true;
                     }
                     resetAfterDeath();
-                    setWaterDeath(false);
+                    waterDeath=false;
+                   // setWaterDeath(false);
                 }
             }
 
@@ -297,7 +304,8 @@ public class AnimalController implements Controllers {
         animal.setY(679.8 + movement);
         deaths = 0;
         animal.setImage(new Image("file:src/p4_group_8_repo/images/froggerUp.png", imgSize, imgSize, true, true));
-        setNoMove(false);
+        noMove=false;
+        //setNoMove(false);
     }
 
     /**
@@ -332,16 +340,16 @@ public class AnimalController implements Controllers {
         return false;
     }
 
-    /**
-     * Gets the noMove variable.
-     * Indicates whether the Actor object
-     * is currently moving.
-     *
-     * @return current state of the noMove variable (true/false)
-     */
-    public boolean getMove(){
-        return noMove;
-    }
+//    /**
+//     * Gets the noMove variable.
+//     * Indicates whether the Actor object
+//     * is currently moving.
+//     *
+//     * @return current state of the noMove variable (true/false)
+//     */
+//    public boolean getMove(){
+//        return noMove;
+//    }
 
     /**
      * Gets the carDeath variable.
@@ -365,43 +373,43 @@ public class AnimalController implements Controllers {
         return waterDeath;
     }
 
-    /**
-     * Gets the deaths variable
-     * which is the number of deaths the Actor
-     * object has had so far.
-     *
-     * @return number of deaths
-     */
-    public int getDeaths(){
-        return deaths;
-    }
+//    /**
+//     * Gets the deaths variable
+//     * which is the number of deaths the Actor
+//     * object has had so far.
+//     *
+//     * @return number of deaths
+//     */
+//    public int getDeaths(){
+//        return deaths;
+//    }
 
-    /**
-     * Sets the noMove variable.
-     *
-     * @param noMove variable for movement
-     */
-    private void setNoMove(boolean noMove){
-        this.noMove=noMove;
-    }
+//    /**
+//     * Sets the noMove variable.
+//     *
+//     * @param noMove variable for movement
+//     */
+//    private void setNoMove(boolean noMove){
+//        this.noMove=noMove;
+//    }
+//
+//    /**
+//     * Sets the waterDeath variable.
+//     *
+//     * @param waterDeath variable for waterDeath
+//     */
+//    private void setWaterDeath(Boolean waterDeath){
+//        this.waterDeath=waterDeath;
+//    }
 
-    /**
-     * Sets the waterDeath variable.
-     *
-     * @param waterDeath variable for waterDeath
-     */
-    private void setWaterDeath(Boolean waterDeath){
-        this.waterDeath=waterDeath;
-    }
-
-    /**
-     * Sets the carDeath variable.
-     *
-     * @param carDeath variable for carDeath.
-     */
-    private void setCarDeath(Boolean carDeath){
-        this.carDeath = carDeath;
-    }
+//    /**
+//     * Sets the carDeath variable.
+//     *
+//     * @param carDeath variable for carDeath.
+//     */
+//    private void setCarDeath(Boolean carDeath){
+//        this.carDeath = carDeath;
+//    }
 
 
 }

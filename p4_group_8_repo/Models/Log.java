@@ -1,5 +1,6 @@
 package p4_group_8_repo.Models;
 
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
 import p4_group_8_repo.Controllers.Controllers;
 
@@ -52,6 +53,8 @@ public class Log extends Actor {
 		setX(xpos);
 		setY(ypos);
 		speed = s;
+		setCache(true);
+		setCacheHint(CacheHint.SPEED);
 	}
 
 	/**
@@ -62,5 +65,9 @@ public class Log extends Actor {
 	 */
 	public boolean getLeft() {
 		return speed < 0;
+	}
+
+	public double getSpeed(){
+		return speed;
 	}
 }

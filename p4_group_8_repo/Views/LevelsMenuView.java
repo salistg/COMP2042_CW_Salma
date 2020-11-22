@@ -43,7 +43,6 @@ public class LevelsMenuView implements GameViews {
 
     private void menuButtons(Stage stage, VBox vBox) {
         Button level1Button = new Button("Level 1");
-
         level1Button.setOnAction(actionEvent -> gameScene(stage,1));
 
         Button level2Button = new Button("Level 2");

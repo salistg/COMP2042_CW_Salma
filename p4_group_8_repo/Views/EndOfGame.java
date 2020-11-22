@@ -33,7 +33,7 @@ public class EndOfGame implements GameViews {
 
     /**
      *  Displays a message with the user's high score,
-     *  makes a call to the UpdateFile method to update the scores file with the user's high score
+     *  makes a call to the updateFile method to update the scores file with the user's high score
      *  and changes the scene to display the End Screen View.
      *
      * @param stage the stage of the application
@@ -48,12 +48,8 @@ public class EndOfGame implements GameViews {
         alert.show();
 
         GameViews gameViews = new SelectViewFactory().getView("end",0, null,null,null);
-        try {
             stage.setScene(gameViews.view(stage));
             stage.show();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
 
         return null;
     }

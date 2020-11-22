@@ -7,7 +7,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import p4_group_8_repo.Controllers.GameAnimation;
+import p4_group_8_repo.Controllers.DigitAnimation;
 import p4_group_8_repo.Models.*;
 
 /**
@@ -54,11 +54,11 @@ public class GameScreenView implements GameViews{
         levels();
         createMusicButton();
 
-        GameAnimation gameAnimation = new GameAnimation(stage, background, animal.getObjectController());
-        gameAnimation.start();
+        DigitAnimation digitAnimation = new DigitAnimation(stage, background, animal.getObjectController());
+        digitAnimation.start();
         background.start();
 
-        return new Scene(background, 600,800);
+        return new Scene(background, 600,750);
     }
 
     /**
@@ -70,7 +70,7 @@ public class GameScreenView implements GameViews{
             if(level==1){
                 backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/iKogsKW.png",600,800,false,true),
                         BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-                addObstacle(1,false);
+               addObstacle(1,false);
             } else {
                  backgroundImage = new BackgroundImage(new Image("file:src/p4_group_8_repo/images/background7.png", 600,800,false,true),
                         BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -177,13 +177,13 @@ public class GameScreenView implements GameViews{
      * Adds Actor objects such as Logs or Turtles to the stage as well
      * as the main Animal object that the user plays with.
      *
-     * @param logY       the log's Y position
-     * @param turtleY    the turtle's Y position
-     * @param wetTurtleY the wet turtle's Y position
-     * @param endY       the end (burrow)'s Y position
-     * @param log3Y      the log of type 3's Y position
-     * @param log2Y      the log of type 2's Y position
-     * @param croc       boolean: true if crocodile should be added to the stage, false if not
+     * @param logY       the log object's Y position
+     * @param turtleY    the turtle object's Y position
+     * @param wetTurtleY the wet turtle object's Y position
+     * @param endY       the end (burrow) object's Y position
+     * @param log3Y      the log of type 3 object's Y position
+     * @param log2Y      the log of type 2 object's Y position
+     * @param croc       boolean: true if a red crocodile object should be added to the stage, false if not
      */
     private void addActorsToStage(int logY, int turtleY, int wetTurtleY, int endY, int log3Y, int log2Y, boolean croc) {
         //these numbers represent the x coordinates of "end" aka the burrows the user
@@ -198,37 +198,47 @@ public class GameScreenView implements GameViews{
         background.add(new SelectModelFactory().getActor(2, 360,25,30,0,0));
 
         for (int k : new int[]{0, 220, 645}) {
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png", k, log3Y, 0.75,150));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png",
+                    k, log3Y, 0.75,150));
         }
         if(croc) {
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png", 440, log3Y, 0.75, 150 ));
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/redCroc.png", 140, log3Y, 2, 120) );
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png",
+                    440, log3Y, 0.75, 150 ));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/redCroc.png",
+                    140, log3Y, 2, 120) );
         }
 
         for (int k : new int[]{0, 400}) {
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/logs.png", k, log2Y, -2,300));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/logs.png",
+                    k, log2Y, -2,300));
         }
 
         if (croc) {
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/redCroc.png", -50, log2Y, 2, 120));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/redCroc.png",
+                    -50, log2Y, 2, 120));
         }
 
         for (int i = 50; i <= 490; i += 220) {
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png", i, logY, 0.75, 150));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png",
+                    i, logY, 0.75, 150));
         }
 
         for (int j : new int[]{500, 300}) {
-            background.add(new SelectModelFactory().getActor(3, j, turtleY,130,-1,0));
+            background.add(new SelectModelFactory().getActor(3,
+                    j, turtleY,130,-1,0));
         }
-        background.add(new SelectModelFactory().getActor(4,700,turtleY,130,-1,0));
+        background.add(new SelectModelFactory().getActor(4,
+                700,turtleY,130,-1,0));
 
         for (int j = 600; j >= 200; j -= 200) {
-            background.add(new SelectModelFactory().getActor(4,j,wetTurtleY,130,-1,0));
+            background.add(new SelectModelFactory().getActor(4,
+                    j,wetTurtleY,130,-1,0));
 
         }
 
         for (int i : new int[]{a, b, c, d, x}) {
-            background.add(new SelectModelFactory().getActor(1,i,endY,0,0,0));
+            background.add(new SelectModelFactory().getActor(1,
+                    i,endY,0,0,0));
         }
 
         animal = new SelectModelFactory().getAnimal();
@@ -241,37 +251,46 @@ public class GameScreenView implements GameViews{
      * as compared to other levels.
      *
      * @param logSpeed speed of Log objects
-     * @param car boolean as to whether to add an Obstacle, car, or not
+     * @param car boolean as to whether to add an Obstacle object, car, or not
      */
     private void waterLevels(int logSpeed, boolean car){
 
         for (int i = 0; i <= 540; i += 270) {
-            background.add(new SelectModelFactory().getActor(3, i, 649,130,-1,0));
+            background.add(new SelectModelFactory().getActor(3,
+                    i, 649,130,-1,0));
         }
         for (int i : new int[]{135, 405}) {
-            background.add(new SelectModelFactory().getActor(4, i,649,130,-1,0));
+            background.add(new SelectModelFactory().getActor(4,
+                    i,649,130,-1,0));
         }
 
         for (int i : new int[]{0, 600, 200}) {
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/crocodile.png", i, 597, 1.5,160));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/crocodile.png",
+                    i, 597, .75,160));
         }
 
         for (int i = 0; i <= 540; i += 135) {
-            background.add(new SelectModelFactory().getActor(4, i, 540,130,-1,0));
+            background.add(new SelectModelFactory().getActor(4,
+                    i, 540,130,-1,0));
         }
 
         for (int i : new int[]{340, 830}) {
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png", i, 500, logSpeed,150));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/log3.png",
+                    i, 500, logSpeed,150));
         }
         for (int i : new int[]{500, 1000}) {
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/logs.png", i, 500, logSpeed,300));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/logs.png",
+                    i, 500, logSpeed,300));
         }
 
         if(car) {
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/car1Left.png", 0, 440, -4, 50));
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/car1Right.png", 540, 440, 2, 50));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/car1Left.png", 0,
+                    440, -4, 50));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/car1Right.png", 540,
+                    440, 2, 50));
         } else
-            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/redCroc.png",100 , 440, 1.5,100));
+            background.add(new SelectModelFactory().getActorWithImage("file:src/p4_group_8_repo/images/redCroc.png",100 ,
+                    440, 1.5,100));
 
 
     }

@@ -1,5 +1,6 @@
 package p4_group_8_repo.Models;
 
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
 import p4_group_8_repo.Controllers.Controllers;
 
@@ -30,6 +31,9 @@ public class Obstacle extends Actor {
 		setX(xpos);
 		setY(ypos);
 		speed = s;
+		
+		setCache(true);
+		setCacheHint(CacheHint.SPEED);
 	}
 
     /**

@@ -1,5 +1,6 @@
 package p4_group_8_repo.Models;
 
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
 import p4_group_8_repo.Controllers.Controllers;
 
@@ -43,6 +44,9 @@ public class Turtle extends Actor {
 		setY(ypos);
 		speed = s;
 		setImage(turtle2);
+
+		setCache(true);
+		setCacheHint(CacheHint.SPEED);
 	}
 
 

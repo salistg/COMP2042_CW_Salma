@@ -4,7 +4,6 @@ import java.io.File;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import p4_group_8_repo.Views.World;
 
 /**
  * MyStage class which extends the World class.
@@ -17,6 +16,7 @@ public class MyStage extends World {
 	 * MediaPlayer object to play the game's music
 	 */
 	private MediaPlayer mediaPlayer = null;
+	private boolean isPlaying = false;
 
 	/**
 	 * {@inheritDoc}
@@ -35,6 +35,7 @@ public class MyStage extends World {
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		mediaPlayer.play();
+		isPlaying = true;
 	}
 
 	/**
@@ -42,6 +43,17 @@ public class MyStage extends World {
 	 */
 	public void stopMusic() {
 		mediaPlayer.stop();
+		isPlaying = false;
+	}
+
+	/**
+	 * Returns a boolean to indicate
+	 * whether music is playing or not.
+	 *
+	 * @return true if music is playing false if not
+	 */
+	public boolean getIsMusicPlaying(){
+		return isPlaying;
 	}
 
 }

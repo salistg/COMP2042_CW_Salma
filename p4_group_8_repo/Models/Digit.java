@@ -1,5 +1,6 @@
 package p4_group_8_repo.Models;
 
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
 import p4_group_8_repo.Controllers.Controllers;
 
@@ -45,6 +46,9 @@ public class Digit extends Actor {
 		setImage(im1);
 		setX(x);
 		setY(y);
+
+		setCache(true);
+		setCacheHint(CacheHint.SPEED);
 	}
 
 	

@@ -1,8 +1,9 @@
 package p4_group_8_repo.Models;
 
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
+import p4_group_8_repo.Controllers.AnimalController;
 import p4_group_8_repo.Controllers.Controllers;
-import p4_group_8_repo.Controllers.SelectControllerFactory;
 
 
 /**
@@ -16,7 +17,7 @@ public class Animal extends Actor {
 	 * AnimalController object instantiated to allow
 	 * for the different controls of the Animal object.
 	 */
-	private final Controllers animalController = new SelectControllerFactory().getController(1, this);
+	private final Controllers animalController = new AnimalController(this);
 
 	/**
 	 * Constructor to instantiate a new Animal.
@@ -28,6 +29,9 @@ public class Animal extends Actor {
 		setX(300);
 		setY(679.8 + (13.3333333 * 2));
 		setImage(new Image("file:src/p4_group_8_repo/images/froggerUp.png", 40, 40, true, true));
+
+		setCache(true);
+		setCacheHint(CacheHint.SPEED);
 	}
 
 	/**
@@ -48,6 +52,5 @@ public class Animal extends Actor {
 	public void act(long now) {
 		animalController.mainControl(now);
 	}
-
 
 }

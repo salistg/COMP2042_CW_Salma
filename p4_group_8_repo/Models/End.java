@@ -1,5 +1,6 @@
 package p4_group_8_repo.Models;
 
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
 import p4_group_8_repo.Controllers.Controllers;
 
@@ -25,6 +26,9 @@ public class End extends Actor{
 		setX(x);
 		setY(y);
 		setImage(new Image("file:src/p4_group_8_repo/images/End.png", 60, 60, true, true));
+
+		setCache(true);
+		setCacheHint(CacheHint.SPEED);
 	}
 
 	/**

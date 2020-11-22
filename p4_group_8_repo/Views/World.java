@@ -17,15 +17,15 @@ public abstract class World extends Pane {
      * An AnimationTimer for the animation of the actors
      */
    private AnimationTimer timer = null;
+   private boolean running = false;
 
     /**
      * Constructor that instantiates a new World.
      */
     public World() {
-    	
-    	sceneProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                newValue.setOnKeyReleased(event -> {
+    	sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.setOnKeyReleased(event -> {
                     if(getOnKeyReleased() != null)
                         getOnKeyReleased().handle(event);
                     List<Actor> myActors = getObjects(Actor.class);
@@ -36,7 +36,7 @@ public abstract class World extends Pane {
                     }
                 });
 
-                newValue.setOnKeyPressed(event -> {
+                newScene.setOnKeyPressed(event -> {
                     if(getOnKeyPressed() != null)
                         getOnKeyPressed().handle(event);
                     List<Actor> myActors = getObjects(Actor.class);
@@ -55,7 +55,7 @@ public abstract class World extends Pane {
      * Creates an AnimationTimer and creates a list of objects under the Actor class.
      * Calls the act method on these objects.
      */
-    public void createTimer() {
+    private void createTimer() {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -65,7 +65,6 @@ public abstract class World extends Pane {
                 for (Actor anActor: actors) {
                 	anActor.act(now);
                 }
-      
             }
         };
     }
@@ -76,6 +75,7 @@ public abstract class World extends Pane {
     public void start() {
     	createTimer();
         timer.start();
+        running = true;
     }
 
     /**
@@ -83,6 +83,7 @@ public abstract class World extends Pane {
      */
     public void stop() {
         timer.stop();
+        running = false;
     }
 
     /**
@@ -96,10 +97,11 @@ public abstract class World extends Pane {
     }
 
     /**
-     * Gets the children objects of the classes that extend the Actor class.
+     * Gets an array of the objects of
+     * type Actor currently present in the World.
      *
-     * @param <A> the type parameter. The type is a class extending Actor class.
-     * @param cls the class
+     * @param <A> the type parameter. Any object of type Actor.
+     * @param cls the class we want to obtain the objects of
      * @return the array of objects
      */
     public <A extends Actor> List<A> getObjects(Class<A> cls) {
@@ -110,6 +112,10 @@ public abstract class World extends Pane {
             }
         }
         return someArray;
+    }
+
+    public boolean getTimerRunning(){
+        return running;
     }
 
     /**
@@ -133,4 +139,14 @@ public abstract class World extends Pane {
      * Stops the music of the game.
      */
     public abstract void stopMusic();
+
+    /**
+     * Returns a boolean to indicate whether music
+     * game is being played.
+     *
+     * @return true if music is playing, false if not
+     */
+    public abstract boolean getIsMusicPlaying();
+
+
 }
