@@ -32,11 +32,11 @@ public class HelpScreenViewTest {
     }
 
     @Test
-    public void testVBoxHas1Button(){
+    public void testVBoxHas2Buttons(){
         Scene scene = helpScreenView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
 
-        assertEquals(1, vBox.getChildren().size());
+        assertEquals(2, vBox.getChildren().size());
         assertEquals(javafx.scene.control.ToggleButton.class,
                 vBox.getChildren().get(0).getClass());
     }
@@ -65,5 +65,21 @@ public class HelpScreenViewTest {
         VBox vBox = (VBox) scene.getRoot();
         ToggleButton backButton = (ToggleButton) vBox.getChildren().get(0);
         assertNotNull(backButton.getOnAction());
+    }
+
+    @Test
+    public void testNextButtonAdded(){
+        Scene scene = helpScreenView.view(stage);
+        VBox vBox = (VBox) scene.getRoot();
+        Button nextButton = (Button) vBox.getChildren().get(1);
+        assertEquals("Next", nextButton.getText());
+    }
+
+    @Test
+    public void testNextButtonAction() {
+        Scene scene = helpScreenView.view(stage);
+        VBox vBox = (VBox) scene.getRoot();
+        Button nextButton = (Button) vBox.getChildren().get(1);
+        assertNotNull(nextButton.getOnAction());
     }
 }

@@ -28,6 +28,11 @@ class ActorTest {
             public void stopMusic() {
 
             }
+
+            @Override
+            public boolean getIsMusicPlaying() {
+                return false;
+            }
         };
         actor = new Actor() {
             @Override

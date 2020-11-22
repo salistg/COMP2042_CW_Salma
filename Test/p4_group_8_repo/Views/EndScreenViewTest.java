@@ -3,6 +3,7 @@ package p4_group_8_repo.Views;
 import javafx.css.Style;
 import javafx.css.StyleClass;
 import javafx.scene.Scene;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
@@ -65,12 +66,21 @@ public class EndScreenViewTest {
         VBox vBox = (VBox) scene.getRoot();
         TableView tableView = (TableView) vBox.getChildren().get(0);
         assertEquals(1, tableView.getColumns().size());
+    }
+
+    @Test
+    public void testTableViewColumn(){
+        Scene scene = endScreenView.view(stage);
+        VBox vBox = (VBox) scene.getRoot();
+        TableView tableView = (TableView) vBox.getChildren().get(0);
         TableColumn tableColumn = (TableColumn) tableView.getColumns().get(0);
 
-        assertEquals(TableColumn.SortType.ASCENDING, tableColumn.getSortType());
         assertEquals("-fx-alignment: CENTER", tableColumn.getStyle());
         assertEquals(250, tableColumn.getPrefWidth(),0.0001);
         assertEquals("High Scores", tableColumn.getText());
+
+        assertEquals(TableColumn.SortType.ASCENDING, tableColumn.getSortType());
+
     }
 
 }

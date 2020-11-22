@@ -15,11 +15,9 @@ public class AnimalControllerTest {
 
     private AnimalController animalController;
     private final double movement = 13.3333333 * 2;
-    private final double originalX = 300;
-    private final double originalY = 679.8 + (13.3333333 * 2);
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         animalController = new AnimalController(new Animal());
     }
 
@@ -31,11 +29,6 @@ public class AnimalControllerTest {
         assertEquals(myStage.getChildren().get(0), animalController.getActor());
     }
 
-//    @Test
-//    public void testAddingActorToScene(){
-//        MyStage myStage = new MyStage();
-//        animalController.addActorToScene();
-//    }
 
     @Test
     public void testGettingActor(){
@@ -317,20 +310,20 @@ public class AnimalControllerTest {
         assertEquals(0,animalController.getPoints());
     }
 
-    @Test
-    public void testMoveGetterReturnsFalse(){
-        assertFalse(animalController.getMove());
-    }
-
-    @Test
-    public void testWaterDeathGetterReturnsFalse(){
-        assertFalse(animalController.getWaterDeath());
-    }
-
-    @Test
-    public void testCarDeathGetterReturnsFalse(){
-        assertFalse(animalController.getCarDeath());
-    }
+//    @Test
+//    public void testMoveGetterReturnsFalse(){
+//        assertFalse(animalController.getMove());
+//    }
+//
+//    @Test
+//    public void testWaterDeathGetterReturnsFalse(){
+//        assertFalse(animalController.getWaterDeath());
+//    }
+//
+//    @Test
+//    public void testCarDeathGetterReturnsFalse(){
+//        assertFalse(animalController.getCarDeath());
+//    }
 
     @Test
     public void testPointsGetterAndChangeScoreReturnsTrue(){
