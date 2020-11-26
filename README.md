@@ -31,7 +31,7 @@ An Executable JAR file of the game Frogger was created in the ```Frogger\out\art
  **Screenshots of the Game:** 
 
 **Start Screen:**\
-![start screen screenshot](https://imgur.com/a/zq9J3i2)
+![start screen screenshot](https://imgur.com/a/iQ0gaCe)
 
 **Help Screen 1:**\
 ![help screen screenshot](https://imgur.com/a/DPzBNvp)
