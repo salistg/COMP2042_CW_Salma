@@ -28,7 +28,7 @@ As classes now mainly communicate through Interfaces, Abstract Classes or Factor
 **6)	Executable JAR file created**\
 An Executable JAR file of the game Frogger was created in the ```Frogger\out\artifacts\Frogger_jar2``` directory. This allows users to directly run the game without an IDE as they would only have to double click on the .bat file in the directory.
 
-\ **Screenshots of the Game:** \
+ **Screenshots of the Game:** 
 
 **Start Screen:**\
 ![start screen screenshot](https://imgur.com/a/zq9J3i2)
