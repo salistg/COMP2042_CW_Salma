@@ -31,40 +31,40 @@ An Executable JAR file of the game Frogger was created in the ```Frogger\out\art
  **Screenshots of the Game:** 
 
 **Start Screen:**\
-![start screen screenshot](https://imgur.com/a/iQ0gaCe)
+![start screen screenshot](https://i.imgur.com/KT7o9oV.png)
 
 **Help Screen 1:**\
-![help screen screenshot](https://imgur.com/a/DPzBNvp)
+![help screen screenshot](https://i.imgur.com/oMS0b1c.png)
 
 **Help Screen 2 (points system):**\
-![help screen screenshot (points system)](https://imgur.com/a/vsUyDFv)
+![help screen screenshot (points system)](https://i.imgur.com/Zsg4utr.png)
 
 **High Scores Menu Screen:**\
-![high scores menu screenshot](https://imgur.com/a/WoqNzcI)
+![high scores menu screenshot](https://i.imgur.com/wPfjYc9.png)
 
 **High Scores Table Screen:**\
-![high scores table screenshot](https://imgur.com/a/Qa7Ajhe)
+![high scores table screenshot](https://i.imgur.com/PR2M27c.png)
 
 **Levels Menu Screen:**\
-![levels menu screenshot](https://imgur.com/a/T1Z3fMP)
+![levels menu screenshot](https://i.imgur.com/aW9d9ba.png)
 
 **Level 1:**\
-![level 1 screenshot](https://imgur.com/a/0qY4eMk)
+![level 1 screenshot](https://i.imgur.com/MMn4wIg.png)
 
 **Level 2:**\
-![level 2 screenshot](https://imgur.com/a/rcQXQTM)
+![level 2 screenshot](https://i.imgur.com/xj9okuW.png)
 
 **Level 3:**\
-![level 3 screenshot](https://imgur.com/a/ZMxzeYL)
+![level 3 screenshot](https://i.imgur.com/W9C3f7P.png)
 
 **Level 4:**\
-![level 4 screenshot](https://imgur.com/a/r1h9gPQ)
+![level 4 screenshot](https://i.imgur.com/npysxcV.png)
 
 **Level 5:**\
-![level 5 screenshot](https://imgur.com/a/3hW1cxw)
+![level 5 screenshot](https://i.imgur.com/sQ2CDw0.png)
 
 **Display at the end of the game:**\
-![a screenshot of the display at the end of the game](https://imgur.com/a/74SZ1QD)
+![a screenshot of the display at the end of the game](https://i.imgur.com/dB09OPo.png)
 
 
 
