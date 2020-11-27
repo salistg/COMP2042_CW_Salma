@@ -1,6 +1,5 @@
 package p4_group_8_repo.Views;
 
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -9,46 +8,47 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import p4_group_8_repo.JavaFXThreadingRule;
+
 import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 /**
- * Test for the LevelsMenuView class. </br>
- * Tests that the LevelsMenuView class is created correctly
+ * Test for the HighScoresMenuView class. </br>
+ * Tests that the HighScoresMenuView class is created correctly
  * with its buttons.
  */
-public class LevelsMenuViewTest {
+public class HighScoresMenuViewTest {
     /**
      * JavaFX rule to allow for testing of JavaFX applications.
      */
     @Rule
     public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
     /**
-     * LevelsMenuView object for testing.
+     * Creating a HighScoresMenuView object for testing.
      */
-    private LevelsMenuView levelsMenuView;
+    private HighScoresMenuView highScoresMenuView;
     /**
-     * Stage object to add the LevelsMenuView to
+     * Stage object to add the HighScoresMenuView to.
      */
     private Stage stage;
 
     /**
      * Set up before every test. </br>
-     * Instantiates the Stage and the LevelsMenuView objects.
+     * Instantiates the HighScoreMenuView and Stage objects.
      */
     @Before
     public void setUp() {
+        highScoresMenuView = new HighScoresMenuView();
         stage = new Stage();
-        levelsMenuView = new LevelsMenuView();
     }
 
     /**
-     * Tests that the VBox has been correctly
-     * added to the view.
+     * Tests that the VBox has been correctly added.
      */
     @Test
     public void testVBoxAdded(){
-        Scene scene = levelsMenuView.view(stage);
+        Scene scene = highScoresMenuView.view(stage);
         assertNotNull(scene.getRoot());
         assertEquals(VBox.class, scene.getRoot().getClass());
     }
@@ -59,7 +59,7 @@ public class LevelsMenuViewTest {
      */
     @Test
     public void testVBoxHas6Buttons(){
-        Scene scene = levelsMenuView.view(stage);
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
 
         assertEquals(6, vBox.getChildren().size());
@@ -77,7 +77,7 @@ public class LevelsMenuViewTest {
      */
     @Test
     public void testVBoxWidthAndHeight(){
-        Scene scene = levelsMenuView.view(stage);
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
 
         assertEquals(500,vBox.getWidth(),0.0001);
@@ -89,9 +89,9 @@ public class LevelsMenuViewTest {
      * correct StyleSheet
      */
     @Test
-    public void testVBoxHasCorrectStyleSheet(){
+    public void testVBoxHasStyleSheet(){
 
-        Scene scene = levelsMenuView.view(stage);
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
 
         assertTrue(Arrays.toString(vBox.getStylesheets().toArray()).contains("button.css"));
@@ -103,35 +103,34 @@ public class LevelsMenuViewTest {
      */
     @Test
     public void testVBoxBackgroundIsSet(){
-        Scene scene = levelsMenuView.view(stage);
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
 
         assertNotNull(vBox.getBackground());
         assertFalse(vBox.getBackground().isEmpty());
-        //tests that the vbox has only one background
         assertEquals(1, vBox.getBackground().getImages().toArray().length);
     }
 
     /**
-     * Tests that the Level 1 button has been added to
+     * Tests that the Level 1 High Scores button has been added to
      * the view with its action.
      */
     @Test
-    public void testLevel1ButtonAddedWithAction(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel1HighScoresButtonAddedWithAction(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level1Button = (Button) vBox.getChildren().get(0);
-        assertEquals("Level 1", level1Button.getText());
+        assertEquals("Level 1 High Scores", level1Button.getText());
         assertNotNull(level1Button.getOnAction());
     }
 
     /**
-     * Tests that the Level 1 button has the same minimum width and
+     * Tests that the Level 1 HighScores button has the same minimum width and
      * height as its VBox's preferred width and height.
      */
     @Test
-    public void testLevel1ButtonWidthAndHeight(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel1HighScoresButtonPosition(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level2Button = (Button) vBox.getChildren().get(0);
         assertEquals(vBox.getPrefHeight(), level2Button.getMinHeight(), 0.0001);
@@ -139,25 +138,25 @@ public class LevelsMenuViewTest {
     }
 
     /**
-     * Tests that the Level 2 button has been added to
+     * Tests that the Level 2 High Scores button has been added to
      * the view with its action.
      */
     @Test
-    public void testLevel2ButtonAddedWithAction(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel2HighScoresButtonAddedWithAction(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level2Button = (Button) vBox.getChildren().get(1);
-        assertEquals("Level 2", level2Button.getText());
+        assertEquals("Level 2 High Scores", level2Button.getText());
         assertNotNull(level2Button.getOnAction());
     }
 
     /**
-     * Tests that the Level 2 button has the same minimum width and
-     * height as tits VBox's preferred width and height.
+     * Tests that the Level 2 HighScores button has the same minimum width and
+     * height as its VBox's preferred width and height.
      */
     @Test
-    public void testLevel2ButtonWidthAndHeight(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel2HighScoresButtonPosition(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level3Button = (Button) vBox.getChildren().get(1);
         assertEquals(vBox.getPrefHeight(), level3Button.getMinHeight(), 0.0001);
@@ -165,25 +164,24 @@ public class LevelsMenuViewTest {
     }
 
     /**
-     * Tests that the Level 3 button has been added to
+     * Tests that the Level 3 High Scores button has been added to
      * the view with its action.
      */
     @Test
-    public void testLevel3ButtonAddedWithAction(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel3HighScoresButtonAddedWithAction(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level3Button = (Button) vBox.getChildren().get(2);
-        assertEquals("Level 3", level3Button.getText());
+        assertEquals("Level 3 High Scores", level3Button.getText());
         assertNotNull(level3Button.getOnAction());
     }
-
     /**
-     * Tests that the Level 3 button has the same minimum width and
-     * height as tits VBox's preferred width and height.
+     * Tests that the Level 3 HighScores button has the same minimum width and
+     * height as its VBox's preferred width and height.
      */
     @Test
-    public void testLevel3ButtonWidthAndHeight(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel3HighScoresButtonPosition(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level3Button = (Button) vBox.getChildren().get(2);
         assertEquals(vBox.getPrefHeight(), level3Button.getMinHeight(), 0.0001);
@@ -191,25 +189,25 @@ public class LevelsMenuViewTest {
     }
 
     /**
-     * Tests that the Level 4 button has been added to
+     * Tests that the Level 4 High Scores button has been added to
      * the view with its action.
      */
     @Test
-    public void testLevel4ButtonAddedWithAction(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel4HighScoresButtonAddedWithAction(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level4Button = (Button) vBox.getChildren().get(3);
-        assertEquals("Level 4", level4Button.getText());
+        assertEquals("Level 4 High Scores", level4Button.getText());
         assertNotNull(level4Button.getOnAction());
     }
 
     /**
-     * Tests that the Level 4 button has the same minimum width and
-     * height as tits VBox's preferred width and height.
+     * Tests that the Level 4 HighScores button has the same minimum width and
+     * height as its VBox's preferred width and height.
      */
     @Test
-    public void testLevel4ButtonWidthAndHeight(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel4HighScoresButtonPosition(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level4Button = (Button) vBox.getChildren().get(3);
         assertEquals(vBox.getPrefHeight(), level4Button.getMinHeight(), 0.0001);
@@ -217,25 +215,25 @@ public class LevelsMenuViewTest {
     }
 
     /**
-     * Tests that the Level 5 button has been added to
+     * Tests that the Level 5 High Scores button has been added to
      * the view with its action.
      */
     @Test
-    public void testLevel5ButtonAddedWithAction(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel5HighScoresButtonAddedWithAction(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level5Button = (Button) vBox.getChildren().get(4);
-        assertEquals("Level 5", level5Button.getText());
+        assertEquals("Level 5 High Scores", level5Button.getText());
         assertNotNull(level5Button.getOnAction());
     }
 
     /**
-     * Tests that the Level 1 button has the same minimum width and
-     * height as tits VBox's preferred width and height.
+     * Tests that the Level 5 HighScores button has the same minimum width and
+     * height as its VBox's preferred width and height.
      */
     @Test
-    public void testLevel5ButtonWidthAndHeight(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testLevel5HighScoresButtonPosition(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button level5Button = (Button) vBox.getChildren().get(4);
         assertEquals(vBox.getPrefHeight(), level5Button.getMinHeight(), 0.0001);
@@ -248,7 +246,7 @@ public class LevelsMenuViewTest {
      */
     @Test
     public void testBackButtonAddedWithAction(){
-        Scene scene = levelsMenuView.view(stage);
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button backButton = (Button) vBox.getChildren().get(5);
         assertEquals("Back to Main Menu", backButton.getText());
@@ -260,8 +258,8 @@ public class LevelsMenuViewTest {
      * height as tits VBox's preferred width and height.
      */
     @Test
-    public void testBackButtonWidthAndHeight(){
-        Scene scene = levelsMenuView.view(stage);
+    public void testBackButtonPosition(){
+        Scene scene = highScoresMenuView.view(stage);
         VBox vBox = (VBox) scene.getRoot();
         Button backButton = (Button) vBox.getChildren().get(5);
         assertEquals(vBox.getPrefHeight(), backButton.getMinHeight(), 0.0001);

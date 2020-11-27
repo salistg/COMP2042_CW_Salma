@@ -9,20 +9,45 @@ import javafx.stage.Stage;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import p4_group_8_repo.Controllers.SelectModelFactory;
 import p4_group_8_repo.JavaFXThreadingRule;
 import p4_group_8_repo.Models.*;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test for the GameScreenView class. </br>
+ * Tests that the GameScreenView class is created correctly
+ * according to the level chosen.
+ */
 public class GameScreenViewTest {
+    /**
+     * JavaFX rule to allow for testing of JavaFX applications.
+     */
     @Rule
     public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
-    GameScreenView gameScreenView;
-    Actor animal;
-    World myStage;
-    Stage stage;
+    /**
+     * Creating a GameScreenView object for testing.
+     */
+    private GameScreenView gameScreenView;
+    /**
+     * Actor object to add to the stage
+     */
+    private Actor animal;
+    /**
+     * MyStage object to add the actors to
+     */
+    private World myStage;
+    /**
+     * Stage to add the view to
+     */
+    private Stage stage;
 
+    /**
+     * Setting up before every test. </br>
+     * Instantiates the actor, myStage, gameScreenView and stage objects.
+     */
     @Before
     public void setUp() {
         animal = new SelectModelFactory().getAnimal();
@@ -32,24 +57,25 @@ public class GameScreenViewTest {
     }
 
     /**
-     * Tests whether a VBox and a ToggleButton
-     * are added to the stage.
-     *
-     * When the GameScreenView class is initiated with level 0,
-     * the stage should only have those two as its children.
+     * Tests that initially the stage only has 2 children one
+     * of type VBox and the other of type ToggleButton.
      */
     @Test
-    public void testAddingOfNodesToStage(){
+    public void testInitalNodesInStage(){
         //since level is 0, when we call the view method
         //mystage should only have two children
         //vbox and togglebutton
         gameScreenView.view(stage);
-        //System.out.println(Arrays.toString(mystage.getChildren().toArray()));
         assertEquals(2, myStage.getChildren().size());
         assertEquals(VBox.class, myStage.getChildren().get(0).getClass());
         assertEquals(ToggleButton.class, myStage.getChildren().get(1).getClass());
     }
 
+    /**
+     * Tests that the VBox and the ToggleButton are correctly added.</br>
+     * Tests that they are at the correct positions and that the toggle button
+     * has the correct label, "Back".
+     */
     @Test
     public void testVBoxAndButtonCorrectlyCreated(){
         gameScreenView.view(stage);
@@ -61,21 +87,19 @@ public class GameScreenViewTest {
         assertEquals("Back", button.getText());
     }
 
-
     /**
-     * Tests that when no level is picked,
-     * the background is null.
+     * Tests that the background of the stage is initially
+     * empty.
      */
     @Test
-    public void testBackgroundIsNull(){
+    public void testBackgroundIsNullInitially(){
         //level 0, no background so should be null
         myStage.getBackground();
         assertNull(myStage.getBackground());
     }
 
     /**
-     * Tests that a background is set
-     * when a level is chosen.
+     * Sets that the correct background is set when level 1 is chosen.
      */
     @Test
     public void testBackGroundIsSetLevel1(){
@@ -85,6 +109,9 @@ public class GameScreenViewTest {
         assertEquals(myStage.getBackground().getClass(),Background.class);
     }
 
+    /**
+     * Sets that the correct background is set when level 2 is chosen.
+     */
     @Test
     public void testBackGroundIsSetLevel2(){
         gameScreenView = new GameScreenView(2,animal, myStage);
@@ -93,6 +120,9 @@ public class GameScreenViewTest {
         assertEquals(myStage.getBackground().getClass(),Background.class);
     }
 
+    /**
+     * Sets that the correct background is set when level 3 is chosen.
+     */
     @Test
     public void testBackGroundIsSetLevel3(){
         gameScreenView = new GameScreenView(3,animal, myStage);
@@ -101,6 +131,9 @@ public class GameScreenViewTest {
         assertEquals(myStage.getBackground().getClass(),Background.class);
     }
 
+    /**
+     * Sets that the correct background is set when level 4 is chosen.
+     */
     @Test
     public void testBackGroundIsSetLevel4(){
         gameScreenView = new GameScreenView(4,animal, myStage);
@@ -109,6 +142,9 @@ public class GameScreenViewTest {
         assertEquals(myStage.getBackground().getClass(),Background.class);
     }
 
+    /**
+     * Sets that the correct background is set when level 5 is chosen.
+     */
     @Test
     public void testBackGroundIsSetLevel5(){
         gameScreenView = new GameScreenView(5,animal, myStage);
@@ -117,6 +153,10 @@ public class GameScreenViewTest {
         assertEquals(myStage.getBackground().getClass(),Background.class);
     }
 
+    /**
+     * Tests that there are no objects of type Actor in the stage
+     * when the level is set to 0.
+     */
     @Test
     public void testNoActorsAddedWhenLevelNotSpecified(){
         assertEquals(0, myStage.getChildren().size());
@@ -124,9 +164,13 @@ public class GameScreenViewTest {
         assertEquals(0, myStage.getObjects(Obstacle.class).size());
         assertEquals(0, myStage.getObjects(Turtle.class).size());
         assertEquals(0, myStage.getObjects(WetTurtle.class).size());
-        assertEquals(0, myStage.getObjects(End.class).size());
+        assertEquals(0, myStage.getObjects(EndGoal.class).size());
     }
-  @Test
+
+    /**
+     * Tests that the correct number of actors are added to level 1.
+     */
+    @Test
     public void testAddingAllActorsToLevel1() {
       //check if it has children
       gameScreenView = new GameScreenView(1, animal, myStage);
@@ -139,9 +183,12 @@ public class GameScreenViewTest {
       assertEquals(10, myStage.getObjects(Obstacle.class).size());
       assertEquals(2, myStage.getObjects(Turtle.class).size());
       assertEquals(4, myStage.getObjects(WetTurtle.class).size());
-      assertEquals(5, myStage.getObjects(End.class).size());
+      assertEquals(5, myStage.getObjects(EndGoal.class).size());
   }
 
+    /**
+     * Tests that the correct number of actors are added to level 2.
+     */
     @Test
     public void testAddingAllActorsToLevel2(){
         //check if it has children
@@ -155,9 +202,12 @@ public class GameScreenViewTest {
         assertEquals(11, myStage.getObjects(Obstacle.class).size());
         assertEquals(2, myStage.getObjects(Turtle.class).size());
         assertEquals(4, myStage.getObjects(WetTurtle.class).size());
-        assertEquals(5, myStage.getObjects(End.class).size());
+        assertEquals(5, myStage.getObjects(EndGoal.class).size());
     }
 
+    /**
+     * Tests that the correct number of actors are added to level 3.
+     */
     @Test
     public void testAddingAllActorsToLevel3(){
         //check if it has children
@@ -171,9 +221,12 @@ public class GameScreenViewTest {
         assertEquals(13, myStage.getObjects(Obstacle.class).size());
         assertEquals(2, myStage.getObjects(Turtle.class).size());
         assertEquals(4, myStage.getObjects(WetTurtle.class).size());
-        assertEquals(5, myStage.getObjects(End.class).size());
+        assertEquals(5, myStage.getObjects(EndGoal.class).size());
     }
 
+    /**
+     * Tests that the correct number of actors are added to level 4.
+     */
     @Test
     public void testAddingAllActorsToLevel4(){
         //check if it has children
@@ -182,14 +235,17 @@ public class GameScreenViewTest {
         assertNotNull(myStage.getChildren());
         //make sure that it has all the children
         //it should have 41 children
-        assertEquals(41, myStage.getChildren().size());
-        assertEquals(15, myStage.getObjects(Log.class).size());
-        assertEquals(1, myStage.getObjects(Obstacle.class).size());
+        assertEquals(40, myStage.getChildren().size());
+        assertEquals(12, myStage.getObjects(Log.class).size());
+        assertEquals(3, myStage.getObjects(Obstacle.class).size());
         assertEquals(5, myStage.getObjects(Turtle.class).size());
         assertEquals(11, myStage.getObjects(WetTurtle.class).size());
-        assertEquals(5, myStage.getObjects(End.class).size());
+        assertEquals(5, myStage.getObjects(EndGoal.class).size());
     }
 
+    /**
+     * Tests that the correct number of actors are added to level 5.
+     */
     @Test
     public void testAddingAllActorsToLevel5(){
         // in level 1: addObstacle(1,false);
@@ -199,11 +255,11 @@ public class GameScreenViewTest {
         assertNotNull(myStage.getChildren());
         //make sure that it has all the children
         //it should have 41 children
-        assertEquals(16, myStage.getObjects(Log.class).size());
-        assertEquals(4, myStage.getObjects(Obstacle.class).size());
+        assertEquals(13, myStage.getObjects(Log.class).size());
+        assertEquals(6, myStage.getObjects(Obstacle.class).size());
         assertEquals(5, myStage.getObjects(Turtle.class).size());
         assertEquals(11, myStage.getObjects(WetTurtle.class).size());
-        assertEquals(5, myStage.getObjects(End.class).size());
+        assertEquals(5, myStage.getObjects(EndGoal.class).size());
     }
 
 }

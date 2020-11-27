@@ -14,8 +14,17 @@ import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
 
 /**
+ *This class was obtained from an external source
+ * to allow for the testing of JavaFx applications.
+ * It sets up the JavaFx environment. </br>
+ *
+ * Obtained from the following source:
+ * <a href="http://andrewtill.blogspot.com/2012/10/junit-rule-for-javafx-controller-testing.html"> JavaFX Threading Rule</a> </br></br>
+ *
+ * Original JavaDocs from the source: </br>
+ *
  * A JUnit {@link Rule} for running tests on the JavaFX thread and performing
- * JavaFX initialisation.  To include in your test case, add the following code:
+ * JavaFX initialisation. To include in a test case, add the following code:
  *
  * <pre>
  * {@literal @}Rule
@@ -59,16 +68,14 @@ public class JavaFXThreadingRule implements TestRule {
 
             final CountDownLatch countDownLatch = new CountDownLatch(1);
 
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        statement.evaluate();
-                    } catch (Throwable e) {
-                        rethrownException = e;
-                    }
-                    countDownLatch.countDown();
-                }});
+            Platform.runLater(() -> {
+                try {
+                    statement.evaluate();
+                } catch (Throwable e) {
+                    rethrownException = e;
+                }
+                countDownLatch.countDown();
+            });
 
             countDownLatch.await();
 
