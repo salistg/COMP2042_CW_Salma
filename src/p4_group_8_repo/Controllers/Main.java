@@ -2,11 +2,7 @@ package p4_group_8_repo.Controllers;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import p4_group_8_repo.Models.Actor;
-import p4_group_8_repo.Models.Animal;
-import p4_group_8_repo.MyStage;
 import p4_group_8_repo.Views.GameViews;
-import p4_group_8_repo.Views.SelectViewFactory;
 
 /**
  * Main class that has the main method.
@@ -23,20 +19,18 @@ public class Main extends Application {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 * Starts the game application.
+	 * Starts the game application by setting the scene
+	 * to the StartScreenView that displays the
+	 * main menu of the game for the user and enables them
+	 * to access the different functionalities of the game.
 	 *
 	 * @param primaryStage the primary stage of the game.
-	 * @throws Exception throws an exception as the StartScreen method throws an exception.
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		//Actor actor = new Animal();
-		//MyStage myStage = new MyStage();
-		//ObjectControllers objectControllers = new AnimalController(myStage);
-		GameViews gameView = new SelectViewFactory().getView("start",0, null);
+		//GameViews gameView = new SelectViewFactory().getView("start");
 		primaryStage.setTitle("Frogger");
-		primaryStage.setScene(gameView.view(primaryStage));
+		primaryStage.setScene(new SelectViewFactory().getView("start").view(primaryStage));
 		primaryStage.show();
 	}
 

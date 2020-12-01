@@ -10,7 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import p4_group_8_repo.ScoresData;
+import p4_group_8_repo.Controllers.SelectViewFactory;
+//import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -19,11 +20,25 @@ import java.util.stream.Collectors;
 
 
 /**
- * Class for the End screen.
  * This class is responsible for displaying the end screen
- * at the end of the game.
+ * at the end of the game which consists of the list of
+ * high scores in the game and a button to go
+ * back to the main menu.
  */
 public class EndScreenView implements GameViews {
+    /**
+     * variable for the level of the game
+     */
+    private final int level;
+
+    /**
+     * Constructor of the EndScreenView class that Instantiates a new
+     * EndScreenView object. It sets the level.
+     * @param level level of the game chosen by the user
+     */
+    public EndScreenView(int level){
+        this.level=level;
+    }
 
     /**
      * Shows the end screen at the end of the game.
@@ -33,6 +48,18 @@ public class EndScreenView implements GameViews {
      * @return a scene that has the end screen
      */
     public Scene view(Stage stage) {
+        VBox vBox = createVBox(stage);
+        return new Scene(vBox, 250, 390);
+    }
+
+    /**
+     * Creates the VBox that will contain the tableview
+     * and the buttons of the end screen.
+     *
+     * @param stage current stage of the application
+     * @return a VBox containing the buttons and tableview
+     */
+    private VBox createVBox(Stage stage) {
         TableView<ScoresData> tableView = getScoresDataTableView();
 
         VBox vBox = new VBox(tableView);
@@ -40,32 +67,32 @@ public class EndScreenView implements GameViews {
 
         ToggleButton backButton = new ToggleButton("Back");
         vBox.getChildren().add(backButton);
-        GameViews gameView = new SelectViewFactory().getView("start",0, null);
         backButton.setOnAction(event3 -> {
             if(backButton.isSelected()) {
                 try {
-                    stage.setScene(gameView.view(stage));
+                    stage.setScene(new SelectViewFactory().getView("scores").view(stage));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-
-        return new Scene(vBox, 250, 390);
-
+        return vBox;
     }
 
     /**
-     * Generates the TableView that will display the high scores of the players.
+     * Generates the TableView that will display the high scores of the players
+     * for the different levels. </br>
      * Updated as the users play the game and arranges the
-     * scores in ascending order (from highest to lowest).
+     * scores in descending order (from highest to lowest).
      *
      * @return TableView of type ScoresData (Scores of the users of the game)
      */
     private TableView<ScoresData> getScoresDataTableView() {
+        final String fileSource = getFileSource();
+
         Collection<ScoresData> list = null;
         try {
-            list = Files.readAllLines(new File("src/p4_group_8_repo/Files/scores.txt").toPath()).stream().map(
+            list = Files.readAllLines(new File(fileSource).toPath()).stream().map(
                     line -> {
                         String[] details = line.split("\n");
                         ScoresData scoresData = new ScoresData();
@@ -78,6 +105,7 @@ public class EndScreenView implements GameViews {
         }
 
         ObservableList<ScoresData> details = FXCollections.observableArrayList(list);
+
         TableView<ScoresData> tableView = new TableView<>();
         TableColumn<ScoresData, String> col2 = new TableColumn<>("High Scores");
         col2.setPrefWidth(250);
@@ -102,6 +130,29 @@ public class EndScreenView implements GameViews {
         tableView.setItems(sortedList);
 
         return tableView;
+    }
+
+    /**
+     * Gets the file source's path depending on the level of the game.
+     *
+     * @return file source's path
+     */
+    //@NotNull
+    private String getFileSource() {
+        final String fileSource;
+        if(level==1)
+            fileSource = "src/p4_group_8_repo/Files/scores.txt";
+        else if(level==2)
+            fileSource = "src/p4_group_8_repo/Files/scores2.txt";
+        else if(level==3)
+            fileSource = "src/p4_group_8_repo/Files/scores3.txt";
+        else if(level==4)
+            fileSource = "src/p4_group_8_repo/Files/scores4.txt";
+        else if(level==5)
+            fileSource = "src/p4_group_8_repo/Files/scores5.txt";
+        else
+            fileSource = "src/p4_group_8_repo/Files/scoresMisc.txt";
+        return fileSource;
     }
 
 

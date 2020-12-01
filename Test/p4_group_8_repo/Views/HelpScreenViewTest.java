@@ -12,18 +12,40 @@ import p4_group_8_repo.JavaFXThreadingRule;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test for the HelpScreenView class. </br>
+ * Tests that the HelpScreenView class is created correctly
+ * with its buttons.
+ */
 public class HelpScreenViewTest {
+    /**
+     * JavaFX rule to allow for testing of JavaFX applications.
+     */
     @Rule
     public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
-    HelpScreenView helpScreenView;
-    Stage stage;
+    /**
+     * HelpScreenView object for testing.
+     */
+    private HelpScreenView helpScreenView;
+    /**
+     *  Stage object to add the HelpScreenView to
+     */
+    private Stage stage;
 
+    /**
+     * Set up before every test. </br>
+     * Instantiates the Stage and the HelpScreenView objects.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         helpScreenView = new HelpScreenView();
         stage = new Stage();
     }
 
+    /**
+     * Tests that the VBox has been correctly
+     * added to the view.
+     */
     @Test
     public void testVBoxAdded(){
         Scene scene = helpScreenView.view(stage);
@@ -31,6 +53,10 @@ public class HelpScreenViewTest {
         assertEquals(VBox.class, scene.getRoot().getClass());
     }
 
+    /**
+     * Tests that the VBox has 2 children one of the
+     * type ToggleButton and the other of type Button.
+     */
     @Test
     public void testVBoxHas2Buttons(){
         Scene scene = helpScreenView.view(stage);
@@ -39,8 +65,13 @@ public class HelpScreenViewTest {
         assertEquals(2, vBox.getChildren().size());
         assertEquals(javafx.scene.control.ToggleButton.class,
                 vBox.getChildren().get(0).getClass());
+        assertEquals(javafx.scene.control.Button.class,
+                vBox.getChildren().get(1).getClass());
     }
 
+    /**
+     * Tests that the VBox's background is correctly set.
+     */
     @Test
     public void testVBoxBackgroundIsSet(){
         Scene scene = helpScreenView.view(stage);
@@ -51,6 +82,10 @@ public class HelpScreenViewTest {
         assertEquals(1, vBox.getBackground().getImages().toArray().length);
     }
 
+    /**
+     * Tests that the toggle button (back button) is correctly added
+     * and that it has the correct label, "Back".
+     */
     @Test
     public void testBackButtonAdded(){
         Scene scene = helpScreenView.view(stage);
@@ -59,6 +94,9 @@ public class HelpScreenViewTest {
         assertEquals("Back", backButton.getText());
     }
 
+    /**
+     * Tests that the back button has an action.
+     */
     @Test
     public void testBackButtonAction() {
         Scene scene = helpScreenView.view(stage);
@@ -67,6 +105,9 @@ public class HelpScreenViewTest {
         assertNotNull(backButton.getOnAction());
     }
 
+    /**
+     * Tests that the next button has been added.
+     */
     @Test
     public void testNextButtonAdded(){
         Scene scene = helpScreenView.view(stage);
@@ -75,6 +116,9 @@ public class HelpScreenViewTest {
         assertEquals("Next", nextButton.getText());
     }
 
+    /**
+     * Tests that the next button has an action.
+     */
     @Test
     public void testNextButtonAction() {
         Scene scene = helpScreenView.view(stage);

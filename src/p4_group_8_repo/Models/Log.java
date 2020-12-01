@@ -1,16 +1,19 @@
 package p4_group_8_repo.Models;
 
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
-import p4_group_8_repo.Controllers.ObjectControllers;
-import p4_group_8_repo.Models.Actor;
+import p4_group_8_repo.Controllers.ActorControllers;
 
 /**
- * Log class that extends from the Actor class.
- * This class is responsible for the Logs which are a type
- * of objects added to the game to facilitate the main character's movement.
+ * Log class that extends the Actor class.
+ * This class is responsible for Logs which are a type
+ * of objects that facilitate the Animal character's movement.
  */
 public class Log extends Actor {
-	private final double speed; //speed of the log
+	/**
+	 * Variable for the speed of the log.
+	 */
+	private final double speed;
 
 	/**
 	 * {@inheritDoc}
@@ -20,31 +23,29 @@ public class Log extends Actor {
 		move(speed , 0);
 		if (getX()>600 && speed>0)
 			setX(-180);
-		if (getX()<-300 && speed<0)
+		if (getX()<(-300) && speed<0)
 			setX(700);
 	}
 
-	@Override
-	public ObjectControllers getObjectController() {
-		return null;
-	}
-
 	/**
-	 * Constructor that instantiates a new Log.
-	 * Sets the X and Y coordinates, the speed and
+	 * Constructor that instantiates a new Log. </br>
+	 * Sets the X and Y coordinates, the speed, the Cache and
 	 * the image of the Log object.
 	 *
-	 * @param imageLink the image link of the log object
-	 * @param size      the size of the log object
-	 * @param xpos      the X position of the log object
-	 * @param ypos      the Y position of the log object
-	 * @param s         the speed of the log object
+	 * @param imageLink the image link of the Log object
+	 * @param dim      the dimensions (width and height) of the Log object's image
+	 * @param xpos      the X position of the Log object
+	 * @param ypos      the Y position of the Log object
+	 * @param s         the speed of the Log object
 	 */
-	public Log(String imageLink, int size, int xpos, int ypos, double s) {
-		setImage(new Image(imageLink, size,size, true, true));
+	public Log(String imageLink, int dim, int xpos, int ypos, double s) {
+		setImage(new Image(imageLink, dim,dim, true, true));
 		setX(xpos);
 		setY(ypos);
 		speed = s;
+
+		setCache(true);
+		setCacheHint(CacheHint.SPEED);
 	}
 
 	/**
@@ -55,5 +56,16 @@ public class Log extends Actor {
 	 */
 	public boolean getLeft() {
 		return speed < 0;
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return null as this class currently doesn't have a controller class
+	 */
+	@Override
+	public ActorControllers getActorController() {
+		return null;
 	}
 }

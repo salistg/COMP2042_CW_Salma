@@ -26,12 +26,12 @@ Following the Factory Design Pattern, two factories were created: the SelectView
 **5)	Interfaces and Abstract classes**\
 Two new interfaces were created: GameViews and ActorControllers while there are also two abstract classes Actor and World. These interfaces and abstract classes were used in the constructors of classes to reduce the dependency on concrete implementations. This helps to facilitate reusability as any class that extends/implements the interfaces or abstract classes can be used and classes are not only dependent on one concrete class.
 
-As classes now mainly communicate through Interfaces, Abstract Classes or Factories, there is a significant reduction in the dependency between them. 
+As classes now mainly communicate through Interfaces, Abstract Classes or Factories, there is a significant reduction in the dependency between them.
 
 **6)	Executable JAR file created**\
 An Executable JAR file of the game Frogger was created in the ```Frogger\out\artifacts\Frogger_jar2``` directory. This allows users to directly run the game without an IDE as they would only have to double click on the .bat file in the directory.
 
- **Screenshots of the Game:** 
+ **Screenshots of the Game:**
 
 **Start Screen:**\
 ![start screen screenshot](https://i.imgur.com/KT7o9oV.png)
@@ -68,17 +68,3 @@ An Executable JAR file of the game Frogger was created in the ```Frogger\out\art
 
 **Display at the end of the game:**\
 ![a screenshot of the display at the end of the game](https://i.imgur.com/dB09OPo.png)
-
-
-
-
-
-
-
-
-
-
-
-
-
-

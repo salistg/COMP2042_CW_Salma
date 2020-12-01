@@ -9,9 +9,10 @@ import javafx.stage.Stage;
 public interface GameViews {
     /**
      * Method to be implemented by all classes implementing the interface.
+     * Dictates what the view should look like.
      *
-     * @param stage Stage object that is the stage of the application
-     * @return a Scene object to display the view
+     * @param stage stage of the application
+     * @return a Scene to display the view
      */
     Scene view(Stage stage);
 

@@ -12,39 +12,69 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test for the Log class.
+ */
 public class LogTest {
+    /**
+     * JavaFX rule to allow for testing on JavaFX applications
+     */
     @Rule
     public JavaFXThreadingRule javafxRule = new JavaFXThreadingRule();
 
+    /**
+     * Creating a Log object for testing.
+     */
     private Log log;
 
+    /**
+     * Set up before every test.</br>
+     * Instantiates the Log object.
+     */
     @Before
     public void setUp() {
         log = new Log("file:src/p4_group_8_repo/images/log3.png", 30,360,370,2);
     }
 
+    /**
+     * Test that the Log object is at the correct X
+     * position after instantiation.
+     */
     @Test
     public void testXPosition(){
         Assert.assertEquals(360, log.getX(),0.0001);
     }
 
+    /**
+     * Test that the Log object is at the correct Y
+     * position after instantiation.
+     */
     @Test
     public void testYPosition(){
         Assert.assertEquals(370, log.getY(), 0.0001);
     }
 
+    /**
+     * Tests that the Y position can be set to negative.
+     */
     @Test
     public void testNegativeYPosition(){
         log.setY(-370);
         Assert.assertEquals(-370, log.getY(), 0.0001);
     }
-
+    /**
+     * Tests that the X position can be set to negative.
+     */
     @Test
     public void testNegativeXPosition(){
         log.setX(-360);
         Assert.assertEquals(-360, log.getX(), 0.0001);
     }
 
+    /**
+     * Tests the movement of the Log object. </br>
+     * Tests that the X and Y coordinates change when the move method is called.
+     */
     @Test
     public void testMovement() {
         //current x=360
@@ -60,6 +90,16 @@ public class LogTest {
         assertEquals(370+speed+speed,log.getY(),0.0001);
     }
 
+    /**
+     * Tests the setting of the X coordinate of the Log object
+     * when the conditions in the act method are met. </br>
+     *
+     * Conditions tested: </br>
+     * <pre>
+     *     if (getX()>600 && speed>0)
+     *            setX(-180);
+     * </pre>
+     */
     @Test
     public void testSettingOfX(){
 //        if (getX()>600 && speed>0)
@@ -71,6 +111,16 @@ public class LogTest {
 
     }
 
+    /**
+     * Tests the setting of the X coordinate of the Log object
+     * when the conditions in the act method are met. </br>
+     *
+     * Conditions tested: </br>
+     * <pre>
+     *    if (getX()<-300 && speed<0)
+     *            setX(700);
+     * </pre>
+     */
     @Test
     public void testSettingOfX2(){
 //        if (getX()<-300 && speed<0)
@@ -81,13 +131,24 @@ public class LogTest {
         assertEquals(700,log2.getX(),0.0001);
     }
 
+    /**
+     * Tests the getObjectController method
+     * to ensure that the method returns null as Log does not have a controller.
+     */
     @Test
     public void testGettingObjectController(){
-        Assert.assertNull(log.getObjectController());
+        Assert.assertNull(log.getActorController());
     }
 
+    /**
+     * Tests that the Log object has a
+     * parent when it is added to the stage.
+     *
+     * Tests that the parent is the MyStage world
+     * that the Log is added to.
+     */
     @Test
-    public void testDigitParent(){
+    public void testDigitParentWhenAddedToStage(){
         Assert.assertNull(log.getParent());
         MyStage myStage = new MyStage();
         myStage.add(log);
@@ -95,6 +156,10 @@ public class LogTest {
         Assert.assertEquals(myStage,log.getParent());
     }
 
+    /**
+     * Tests that the getLeft method returns true when the speed
+     * of the Log object is negative and that it returns false initially.
+     */
     @Test
     public void testGetLeft() {
         assertFalse(log.getLeft());
@@ -104,23 +169,30 @@ public class LogTest {
 
     //Image tests
 
+    /**
+     * Tests the Log object's image at
+     * instantiation is smooth and has
+     * a preserved ratio.
+     */
     @Test
     public void testImageSmoothnessAndRatio(){
         Assert.assertTrue(log.getImage().isPreserveRatio());
         Assert.assertTrue(log.getImage().isSmooth());
     }
 
-    @Test
-    public void testImageWidthAndHeight(){
-        Assert.assertEquals(log.getImage().getHeight(),log.getImage().getWidth(), 0.0001);
-    }
-
+    /**
+     * Tests that the main image of the Log object
+     * is correctly set.
+     */
     @Test
     public void testImageIsSet(){
         Assert.assertNotNull(log.getImage());
         Assert.assertFalse(log.getImage().isError());
     }
 
+    /**
+     * Tests that the Log object image changes when an image is set.
+     */
     @Test
     public void testImageChange(){
         assertEquals("file:src/p4_group_8_repo/images/log3.png", log.getImage().getUrl());
@@ -128,6 +200,9 @@ public class LogTest {
         assertEquals("file:src/p4_group_8_repo/images/logs.png", log.getImage().getUrl());
     }
 
+    /**
+     * Tests adding the Log object to the stage.
+     */
     @Test
     public void testLogAdding(){
 //        for (int k : new int[]{0, 220, 645}) {
