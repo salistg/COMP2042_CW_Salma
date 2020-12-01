@@ -1,34 +1,40 @@
 package p4_group_8_repo.Models;
 
+import javafx.scene.CacheHint;
 import javafx.scene.image.Image;
-import p4_group_8_repo.Controllers.ObjectControllers;
-import p4_group_8_repo.Models.Actor;
+import p4_group_8_repo.Controllers.ActorControllers;
 
 /**
- * Obstacle class that extends the Actor class.
- * Responsible for the obstacles such as cars or trucks that will be added
- * to the game screen.
+ * Obstacle class that extends the Actor class. </br>
+ * Responsible for the obstacles such as cars or trucks that
+ * cause the death of the Animal character when they
+ * intersect with it.
  */
 public class Obstacle extends Actor {
-	private final int speed;
+	/**
+	 * Variable for the speed of the obstacle.
+	 */
+	private final double speed;
 
 	/**
-	 * Instantiates a new Obstacle.
-	 * Sets the X and Y positions, the image of the obstacle
+	 * Instantiates a new Obstacle object. </br>
+	 * Sets the X and Y positions, the cache, the image of the Obstacle
 	 * and the speed.
 	 *
-	 * @param imageLink the image link of the obstacle
-	 * @param xpos      the X position of the obstacle
-	 * @param ypos      the Y position of the obstacle
-	 * @param s         the speed of the obstacle
-	 * @param w         the width of the obstacle
-	 * @param h         the height of the obstacle
+	 * @param imageLink the image link of the Obstacle
+	 * @param xpos      the X position of the Obstacle
+	 * @param ypos      the Y position of the Obstacle
+	 * @param s         the speed of the Obstacle
+	 * @param dim       the dimensions (width and height) of the image of the obstacle
 	 */
-	public Obstacle(String imageLink, int xpos, int ypos, int s, int w, int h) {
-		setImage(new Image(imageLink, w,h, true, true));
+	public Obstacle(String imageLink, int xpos, int ypos, double s, int dim) {
+		setImage(new Image(imageLink, dim,dim, true, true));
 		setX(xpos);
 		setY(ypos);
 		speed = s;
+		
+		setCache(true);
+		setCacheHint(CacheHint.SPEED);
 	}
 
     /**
@@ -43,8 +49,14 @@ public class Obstacle extends Actor {
 			setX(600);
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return null as this class currently doesn't have a controller class
+	 */
 	@Override
-	public ObjectControllers getObjectController() {
+	public ActorControllers getActorController() {
 		return null;
 	}
 
