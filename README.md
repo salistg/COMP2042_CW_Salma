@@ -6,6 +6,9 @@ COMP2042 Software Maintenance Coursework.
 **JUnit Version:** 4\
 **JavaFX Version:** 11.0.2
 
+**Tests created:** 206\
+**Tests passed:** 206\
+
 **Key changes made for extension and maintenance:**
 
 **1)	Separated functionalities to promote single responsibility**\
