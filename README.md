@@ -7,7 +7,7 @@ COMP2042 Software Maintenance Coursework.
 **JavaFX Version:** 11.0.2
 
 **Tests created:** 206\
-**Tests passed:** 206\
+**Tests passed:** 206
 
 **Key changes made for extension and maintenance:**
 
