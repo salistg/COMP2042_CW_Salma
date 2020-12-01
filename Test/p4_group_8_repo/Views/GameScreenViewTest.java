@@ -32,10 +32,6 @@ public class GameScreenViewTest {
      */
     private GameScreenView gameScreenView;
     /**
-     * Actor object to add to the stage
-     */
-    private Actor animal;
-    /**
      * MyStage object to add the actors to
      */
     private World myStage;
@@ -50,25 +46,25 @@ public class GameScreenViewTest {
      */
     @Before
     public void setUp() {
-        animal = new SelectModelFactory().getAnimal();
         myStage = new MyStage();
         stage = new Stage();
-        gameScreenView = new GameScreenView(0,animal, myStage);
+        gameScreenView = new GameScreenView(0, myStage);
     }
 
     /**
-     * Tests that initially the stage only has 2 children one
-     * of type VBox and the other of type ToggleButton.
+     * Tests that initially the stage only has 3 children of
+     * types VBox, ToggleButton and Animal.
      */
     @Test
     public void testInitalNodesInStage(){
         //since level is 0, when we call the view method
-        //mystage should only have two children
+        //mystage should only have three children
         //vbox and togglebutton
         gameScreenView.view(stage);
-        assertEquals(2, myStage.getChildren().size());
+        assertEquals(3, myStage.getChildren().size());
         assertEquals(VBox.class, myStage.getChildren().get(0).getClass());
-        assertEquals(ToggleButton.class, myStage.getChildren().get(1).getClass());
+        assertEquals(ToggleButton.class, myStage.getChildren().get(2).getClass());
+        assertEquals(Animal.class, myStage.getChildren().get(1).getClass());
     }
 
     /**
@@ -103,7 +99,7 @@ public class GameScreenViewTest {
      */
     @Test
     public void testBackGroundIsSetLevel1(){
-        gameScreenView = new GameScreenView(1,animal, myStage);
+        gameScreenView = new GameScreenView(1, myStage);
         gameScreenView.view(stage);
         assertNotNull(myStage.getBackground());
         assertEquals(myStage.getBackground().getClass(),Background.class);
@@ -114,7 +110,7 @@ public class GameScreenViewTest {
      */
     @Test
     public void testBackGroundIsSetLevel2(){
-        gameScreenView = new GameScreenView(2,animal, myStage);
+        gameScreenView = new GameScreenView(2, myStage);
         gameScreenView.view(stage);
         assertNotNull(myStage.getBackground());
         assertEquals(myStage.getBackground().getClass(),Background.class);
@@ -125,7 +121,7 @@ public class GameScreenViewTest {
      */
     @Test
     public void testBackGroundIsSetLevel3(){
-        gameScreenView = new GameScreenView(3,animal, myStage);
+        gameScreenView = new GameScreenView(3, myStage);
         gameScreenView.view(stage);
         assertNotNull(myStage.getBackground());
         assertEquals(myStage.getBackground().getClass(),Background.class);
@@ -136,7 +132,7 @@ public class GameScreenViewTest {
      */
     @Test
     public void testBackGroundIsSetLevel4(){
-        gameScreenView = new GameScreenView(4,animal, myStage);
+        gameScreenView = new GameScreenView(4, myStage);
         gameScreenView.view(stage);
         assertNotNull(myStage.getBackground());
         assertEquals(myStage.getBackground().getClass(),Background.class);
@@ -147,7 +143,7 @@ public class GameScreenViewTest {
      */
     @Test
     public void testBackGroundIsSetLevel5(){
-        gameScreenView = new GameScreenView(5,animal, myStage);
+        gameScreenView = new GameScreenView(5, myStage);
         gameScreenView.view(stage);
         assertNotNull(myStage.getBackground());
         assertEquals(myStage.getBackground().getClass(),Background.class);
@@ -173,7 +169,7 @@ public class GameScreenViewTest {
     @Test
     public void testAddingAllActorsToLevel1() {
       //check if it has children
-      gameScreenView = new GameScreenView(1, animal, myStage);
+      gameScreenView = new GameScreenView(1, myStage);
       gameScreenView.view(stage);
       assertNotNull(myStage.getChildren());
       //make sure that it has all the children
@@ -192,7 +188,7 @@ public class GameScreenViewTest {
     @Test
     public void testAddingAllActorsToLevel2(){
         //check if it has children
-        gameScreenView = new GameScreenView(2,animal, myStage);
+        gameScreenView = new GameScreenView(2, myStage);
         gameScreenView.view(stage);
         assertNotNull(myStage.getChildren());
         //make sure that it has all the children
@@ -211,7 +207,7 @@ public class GameScreenViewTest {
     @Test
     public void testAddingAllActorsToLevel3(){
         //check if it has children
-        gameScreenView = new GameScreenView(3,animal, myStage);
+        gameScreenView = new GameScreenView(3, myStage);
         gameScreenView.view(stage);
         assertNotNull(myStage.getChildren());
         //make sure that it has all the children
@@ -230,7 +226,7 @@ public class GameScreenViewTest {
     @Test
     public void testAddingAllActorsToLevel4(){
         //check if it has children
-        gameScreenView = new GameScreenView(4,animal, myStage);
+        gameScreenView = new GameScreenView(4, myStage);
         gameScreenView.view(stage);
         assertNotNull(myStage.getChildren());
         //make sure that it has all the children
@@ -250,7 +246,7 @@ public class GameScreenViewTest {
     public void testAddingAllActorsToLevel5(){
         // in level 1: addObstacle(1,false);
         //check if it has children
-        gameScreenView = new GameScreenView(5,animal, myStage);
+        gameScreenView = new GameScreenView(5, myStage);
         gameScreenView.view(stage);
         assertNotNull(myStage.getChildren());
         //make sure that it has all the children

@@ -45,7 +45,7 @@ public class SelectViewFactoryTest {
     public void testGameScreenInstantiation(){
         assertEquals(GameScreenView.class,
                 selectViewFactory.getView("game",0,
-                        new AnimalController(new Animal()),new Animal(),new MyStage()).getClass() );
+                        new AnimalController(new Animal()),new MyStage()).getClass() );
     }
 
     /**
@@ -56,7 +56,7 @@ public class SelectViewFactoryTest {
     public void testEndScreenInstantiation(){
         assertEquals(EndScreenView.class,
                 selectViewFactory.getView("end",0,
-                        new AnimalController(new Animal()),new Animal(),new MyStage()).getClass() );
+                        new AnimalController(new Animal()),new MyStage()).getClass() );
     }
 
     /**
@@ -87,7 +87,7 @@ public class SelectViewFactoryTest {
     public void testEndOfGameScreenInstantiation(){
         assertEquals(EndOfGame.class,
                 selectViewFactory.getView("endGame",0,
-                        new AnimalController(new Animal()),new Animal(),new MyStage()).getClass() );
+                        new AnimalController(new Animal()),new MyStage()).getClass() );
     }
 
     /**
@@ -117,11 +117,11 @@ public class SelectViewFactoryTest {
     @Test
     public void testNullScreenInstantiation(){
         assertNull(selectViewFactory.getView("",0,
-                new AnimalController(new Animal()),new Animal(),new MyStage()) );
+                new AnimalController(new Animal()),new MyStage()) );
         assertNull(selectViewFactory.getView("1",0,
-                new AnimalController(new Animal()),new Animal(),new MyStage()) );
+                new AnimalController(new Animal()),new MyStage()) );
         assertNull(selectViewFactory.getView("nothing",0,
-                new AnimalController(new Animal()),new Animal(),new MyStage()) );
+                new AnimalController(new Animal()),new MyStage()) );
     }
 
 
