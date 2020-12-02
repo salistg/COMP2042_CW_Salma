@@ -106,7 +106,8 @@ public class AnimalController implements ActorControllers {
             animal.move(-movementY * 2, 0);
         }
 
-        atIntersection();
+        if(animal.getIntersectingObjects(Actor.class).size()>=1)
+            atIntersection();
     }
 
     /**
@@ -142,9 +143,12 @@ public class AnimalController implements ActorControllers {
             endGoal++;
             animal.setX(300);
             animal.setY(679.8 + movementY);
-        } else if (animal.getY() < 413) {
-          waterDeath=true;
         }
+//        } else if (animal.getY() < 413) {
+//          waterDeath=true;
+//        }
+
+        animal.getIntersectingObjects(Actor.class).remove(Actor.class);
     }
 
     /**
@@ -155,6 +159,12 @@ public class AnimalController implements ActorControllers {
      * @param now timestamp of the current frame in nanoseconds
      */
     private void death(long now) {
+        if(animal.getIntersectingObjects(Actor.class).size()==0) {
+            if (animal.getY() < 413) {
+                waterDeath = true;
+            }
+        }
+
         if (carDeath) {
             noMove = true;
             if (now % 11 == 0) {
