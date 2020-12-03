@@ -18,6 +18,7 @@ public class MyStage extends World {
 	 */
 	//private MediaPlayer mediaPlayer = null;
 	private AudioClip audioClip = null;
+
 	/**
 	 * Boolean variable to indicate whether the media player
 	 * is playing music or not.
