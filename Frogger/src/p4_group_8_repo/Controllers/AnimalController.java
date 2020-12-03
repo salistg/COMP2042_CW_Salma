@@ -88,7 +88,6 @@ public class AnimalController implements ActorControllers {
      * @param now the current timestamp of the frame in nanoseconds
      */
     public void mainControl(long now) {
-
         actorMovement.movement();
 
         if (animal.getY() < 0 || animal.getY() > 734) {
@@ -106,7 +105,7 @@ public class AnimalController implements ActorControllers {
             animal.move(-movementY * 2, 0);
         }
 
-        if(animal.getIntersectingObjects(Actor.class).size()>=1)
+        if(now % 100 ==0)
             atIntersection();
     }
 
@@ -164,7 +163,6 @@ public class AnimalController implements ActorControllers {
                 waterDeath = true;
             }
         }
-
         if (carDeath) {
             noMove = true;
             if (now % 11 == 0) {

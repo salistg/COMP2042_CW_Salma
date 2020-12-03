@@ -68,25 +68,26 @@ public class DigitAnimation implements ActorControllers {
         }
     }
 
-//    private void setDigit(int shift, int k){
-//        Actor digit = new SelectModelFactory().getActor(2,360-shift,25,30,0, k);
-//
-//    }
-
     /**
-     * Creates the animation timer.
+     * Creates the animation timer which is
+     * used to update the number of the Digit as
+     * the player plays the game and their score changes.
      */
     private void createTimer() {
+        final long[] timeOfLastFrameSwitch = {0};
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if(controller.hasGameEnded())
-                    gameEnd();
-                else if (controller.changeScore())
-                    setNumber(controller.getPoints());
+                if(System.nanoTime() - timeOfLastFrameSwitch[0] >= (150 * 1000000)) {
+                    if (controller.hasGameEnded())
+                        gameEnd();
+                    else if (controller.changeScore()) {
+                        setNumber(controller.getPoints());
+                        timeOfLastFrameSwitch[0] = System.nanoTime();
+                    }
+                }
             }
         };
-
     }
 
     /**
