@@ -14,7 +14,7 @@ COMP2042 Software Maintenance Coursework.
 2. Unzip it to the desired location
 2. Open IntelliJ
 3. Select Open if the Welcome screen opens (Or File -> Open from the menu)
-4. Go to the directory where the ``Frogger`` folder is inside the unzipped folder 
+4. Go to the directory where the ``Frogger`` folder is inside the unzipped folder
 (make sure the imported folder is the ``Frogger`` folder)
 5. Click Open
 
@@ -38,7 +38,7 @@ Two new interfaces were created: GameViews and ActorControllers while there are 
 As classes now mainly communicate through Interfaces, Abstract Classes or Factories, there is a significant reduction in the dependency between them.
 
 **6)	Executable JAR file created**\
-An Executable JAR file of the game Frogger was created in the ```Frogger\Frogger Game``` directory. This allows users to directly run the game without an IDE as they would only have to double click on the .bat file in the directory.
+An Executable JAR file of the game Frogger was created in the ```Frogger\Frogger Game``` directory. This allows users to directly run the game without an IDE as they would only have to double click on the ``Run Game.bat`` file in the directory.
 
  ## Screenshots of the Game
 
