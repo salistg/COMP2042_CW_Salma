@@ -9,7 +9,7 @@ COMP2042 Software Maintenance Coursework.
 **Tests created:** 206\
 **Tests passed:** 206
 
-# How to import and run
+## How to import and run
 1. Download the zip file
 2. Unzip it to the desired location
 2. Open IntelliJ
@@ -18,7 +18,7 @@ COMP2042 Software Maintenance Coursework.
 (make sure the imported folder is the ``Frogger`` folder)
 5. Click Open
 
-**Key changes made for extension and maintenance:**
+## Key changes made for extension and maintenance
 
 **1)	Separated functionalities to promote single responsibility**\
 In the original project, there were several large classes with multiple responsibilities. For example, the Animal class in the Models package, was responsible for the movement of the Animal object, its setting, and its behavior at a death or at an intersection with another object. After maintenance, the Animal class is solely responsible for the setting of the Animal object (its image and its initial coordinates) and another two classes were created to control the Animal object’s movement and behavior. The same behavior was followed for all classes. Large classes were broken up into smaller ones and each class now has a single responsibility. This also improved encapsulation as all related data and methods are together in one class.
