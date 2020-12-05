@@ -1,3 +1,3 @@
 How to run the executable JAR and play the game:
 
-Double click the "Run Game.bat" file
+Double click the "Frogger" file
