@@ -19,12 +19,12 @@ COMP2042 Software Maintenance Coursework.
 5. Click Open
 
 ## Contents of Every Folder Inside the ``Frogger`` Folder
-1. Test: JUnit tests
-2. src: source code files
-3. out: output files
-4. JavaDocs: Java docs for the source code
-5. Frogger Game: contains the executable JAR file that allows the user to run the game by double clicking
-6. .idea: IntelliJ generated folder containing the project's settings
+1. **Test:** JUnit tests
+2. **src:** source code files
+3. **out:** output files
+4. **JavaDocs:** Java docs for the source code
+5. **Frogger Game:** contains the executable JAR file that allows the user to run the game by double clicking
+6. **.idea:** IntelliJ generated folder containing the project's settings
 
 ## Key changes made for extension and maintenance
 
