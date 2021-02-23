@@ -1,6 +1,6 @@
 # COMP2042_CW_Salma
-COMP2042 Software Maintenance Coursework.\
-Student ID: 20050927
+My take on the classic game Frogger developed using JavaFX as a part of my coursework for a module called Software Maintenance (COMP2042).\
+The goal of the coursework was to work on an existing code by maintaining, improving and adding to it. Rather than working from scratch, we were given an incomplete, messy code and were tasked with fixing it to create our own version of the game.
 
 **IDE:** JetBrains IntelliJ IDEA 2020.2.2\
 **Java Version:** 15\
